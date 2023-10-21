@@ -1,0 +1,40 @@
+version: '2'
+
+services:
+
+
+  db:
+    image: 'postgres'
+    container_name: db
+    environment:
+      - POSTGRES_USER=compose-postgres
+      - POSTGRES_PASSWORD=compose-postgres
+    ports:
+      - "5432:5432"
+    networks:
+        - lanchonete-network
+
+
+  myapp:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    container_name: lanchonete
+    environment:
+      - SPRING_JPA_DATABASE=POSTGRESQL
+      - SPRING_DATASOURCE_PLATFORM=postgres
+      - SPRING_DATASOURCE_USERNAME=compose-postgres
+      - SPRING_DATASOURCE_PASSWORD=compose-postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
+    depends_on:
+      - db
+    ports:
+        - "8080:8080"
+    networks:
+      - lanchonete-network
+
+
+
+networks:
+  lanchonete-network:
+    driver: bridge
