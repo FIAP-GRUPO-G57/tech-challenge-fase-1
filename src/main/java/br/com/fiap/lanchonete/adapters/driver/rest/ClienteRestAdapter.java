@@ -1,8 +1,8 @@
 package br.com.fiap.lanchonete.adapters.driver.rest;
 
 import br.com.fiap.lanchonete.adapters.driver.dto.ClienteDTO;
-import br.com.fiap.lanchonete.application.usecase.CreateClienteUseCase;
-import br.com.fiap.lanchonete.application.usecase.GetClienteUseCase;
+import br.com.fiap.lanchonete.application.ports.input.usecase.CreateClienteUseCase;
+import br.com.fiap.lanchonete.application.ports.input.usecase.GetClienteUseCase;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
