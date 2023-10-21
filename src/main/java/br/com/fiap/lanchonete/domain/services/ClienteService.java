@@ -8,10 +8,9 @@ import br.com.fiap.lanchonete.application.ports.input.usecase.GetClienteUseCase;
 import br.com.fiap.lanchonete.application.ports.output.ClienteOutputPort;
 import br.com.fiap.lanchonete.domain.entities.Cliente;
 import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Component;
+
 
 @Transactional
-@Component
 public class ClienteService implements CreateClienteUseCase, GetClienteUseCase {
 
 
