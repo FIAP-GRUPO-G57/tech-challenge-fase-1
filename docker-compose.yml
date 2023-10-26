@@ -7,8 +7,8 @@ services:
     image: 'postgres'
     container_name: db
     environment:
-      - POSTGRES_USER=compose-postgres
-      - POSTGRES_PASSWORD=compose-postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     ports:
       - "5432:5432"
     networks:
@@ -23,8 +23,8 @@ services:
     environment:
       - SPRING_JPA_DATABASE=POSTGRESQL
       - SPRING_DATASOURCE_PLATFORM=postgres
-      - SPRING_DATASOURCE_USERNAME=compose-postgres
-      - SPRING_DATASOURCE_PASSWORD=compose-postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
     depends_on:
       - db
