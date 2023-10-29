@@ -41,10 +41,13 @@ public class ClientePersistencePostgreeAdapter implements ClienteOutputPort {
 
         ClienteData clienteData = clienteRepository.findByCpf(cpf);
 
-        if (clienteData == null ){
-            throw new EntityNotFoundException("Cliente nao encontrado para o cpf :: " + cpf);
+
+
+        Cliente cli = null;
+        if (clienteData != null) {
+            cli = clienteDataMapper.toDomain(clienteData);
         }
-        Cliente cli = clienteDataMapper.toDomain(clienteData);
+
 
         return cli;
     }

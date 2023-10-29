@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "83651a21-3363-47a9-a053-79d02cf2741d",
+		"_postman_id": "6425d555-5526-4baa-bda1-dd865a8aaa62",
 		"name": "clientes",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "1146942"
+		"_exporter_id": "10707183"
 	},
 	"item": [
 		{
@@ -15,14 +15,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/clientes",
+							"raw": "http://localhost:8080/cliente/111.111.111-00",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"clientes"
+								"cliente",
+								"111.111.111-00"
 							]
 						}
 					},
@@ -35,7 +36,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome\":\"teste\",\n    \"cpf\":\"12345678912\",\n    \"telefone\":\"11999998888\",\n    \"endereco\":\"rua sem fim\",\n    \"email\":\"teste@teste.com\"\n}",
+							"raw": "{\n \n    \"nome\": \"teste\",\n    \"cpf\" : \"111.111.111-00\",\n    \"telefone\": \"1199999-8888\",\n    \"endereco\": null,\n    \"email\": \"teste@teste.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -67,7 +68,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/produtos?categoria=lanche",
+							"raw": "http://localhost:8080/produtos?categoria=LANCHE",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -79,7 +80,7 @@
 							"query": [
 								{
 									"key": "categoria",
-									"value": "lanche"
+									"value": "LANCHE"
 								}
 							]
 						}
@@ -111,7 +112,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/produtos/1",
+							"raw": "http://localhost:8080/produtos/8",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -119,20 +120,20 @@
 							"port": "8080",
 							"path": [
 								"produtos",
-								"1"
+								"8"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "post",
+					"name": "post Lanche",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome\":\"cheseburguer\",\n    \"categoria\":\"lanche\",\n    \"preco\":10.99,\n    \"descricao\":\"hamburguer e queijo\",\n    \"imagens\":[\n        \"teste.gif\",\n        \"teste.png\"\n    ]\n}",
+							"raw": "{\n  \n     \"nome\":\"cheseburguer\",\n    \"categoria\":\"LANCHE\",\n    \"preco\":10.99,\n    \"descricao\":\"hamburguer e queijo\",\n    \"imagens\":[\n        \"teste.gif\",\n        \"teste.png\"\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -160,7 +161,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome\":\"coca\",\n    \"categoria\":\"bebida\",\n    \"preco\":4.99,\n    \"descricao\":\"coca cola\",\n    \"imagens\":[\n        \"teste.gif\"\n    ]\n}",
+							"raw": "{\n    \"nome\":\"fanta\",\n    \"categoria\":\"BEBIDA\",\n    \"preco\":4.99,\n    \"descricao\":\"Fanta\",\n    \"imagens\":[\n        \"teste.gif\"\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -188,7 +189,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome\":\"coca\",\n    \"categoria\":\"bebida\",\n    \"preco\":4.99,\n    \"descricao\":\"coca cola\",\n    \"imagens\":[\n        \"teste.gif\"\n    ]\n}",
+							"raw": "{\n    \"nome\":\"coca\",\n    \"categoria\":\"ACOMPANHAMENTO\",\n    \"preco\":4.99,\n    \"descricao\":\"coca cola\",\n    \"imagens\":[\n        \"teste.gif\"\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -216,7 +217,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "\n{\n    \"nome\": \"fanta\",\n    \"categoria\": \"BEBIDA\",\n    \"preco\": 2.99,\n    \"descricao\": \"fanta laranja\",\n    \"imagens\": [\n        \"fanta.gif\"\n    ]\n}",
+							"raw": "\n{\n  \n    \"nome\": \"fanta\",\n    \"categoria\": \"BEBIDA\",\n    \"preco\": 2.99,\n    \"descricao\": \"Lata \",\n    \"imagens\": [\n        \"fanta.gif\"\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -224,7 +225,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/produtos/7",
+							"raw": "http://localhost:8080/produtos/15",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -232,7 +233,7 @@
 							"port": "8080",
 							"path": [
 								"produtos",
-								"7"
+								"15"
 							]
 						}
 					},
@@ -253,7 +254,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/produtos/1",
+							"raw": "http://localhost:8080/produtos/15",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -261,7 +262,7 @@
 							"port": "8080",
 							"path": [
 								"produtos",
-								"1"
+								"15"
 							]
 						}
 					},
@@ -278,7 +279,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/pedidos?status=RECEBIDO",
+							"raw": "http://localhost:8080/pedidos?status=CRIADO",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -290,7 +291,7 @@
 							"query": [
 								{
 									"key": "status",
-									"value": "RECEBIDO"
+									"value": "CRIADO"
 								}
 							]
 						}
@@ -337,13 +338,13 @@
 					"response": []
 				},
 				{
-					"name": "post",
+					"name": "CriarPedido",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"cliente\":{\n        \"cpf\":\"12312312312\"\n    },\n    \"itens\":[\n        {\n            \"produto\":{\n                \"id\":4\n            }\n        },\n        {\n            \"produto\":{\n                \"id\":5\n            }\n        },\n        {\n            \"produto\":{\n                \"id\":6\n            }\n        }\n    ]\n}",
+							"raw": "{\n    \"cliente\":{\n        \"cpf\":\"111.111.111-00\"\n    },\n    \"itens\":[\n        {\n            \"produto\":{\n                \"id\":1\n            }\n        },\n        {\n            \"produto\":{\n                \"id\":2\n            }\n        },\n        {\n            \"produto\":{\n                \"id\":3\n            }\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -365,13 +366,13 @@
 					"response": []
 				},
 				{
-					"name": "put",
+					"name": "add Items",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "\n{\n    \"nome\": \"fanta\",\n    \"categoria\": \"BEBIDA\",\n    \"preco\": 2.99,\n    \"descricao\": \"fanta laranja\",\n    \"imagens\": [\n        \"fanta.gif\"\n    ]\n}",
+							"raw": "[\n\n         {\n              \n                \"produto\": {\n                    \"id\": 4\n\n                }\n\n            }\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -379,28 +380,29 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/produtos/7",
+							"raw": "http://localhost:8080/pedidos/2/add-items",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"produtos",
-								"7"
+								"pedidos",
+								"2",
+								"add-items"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "delete",
+					"name": "delete Items",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome\":\"cheseburguer\",\n    \"categoria\":\"lanche\",\n    \"preco\":10.99,\n    \"descricao\":\"hamburguer e queijo\",\n    \"imagens\":[\n        \"teste.gif\",\n        \"teste.png\"\n    ]\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -408,15 +410,38 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/produtos/1",
+							"raw": "http://localhost:8080/pedidos/2/delete-item/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"produtos",
-								"1"
+								"pedidos",
+								"2",
+								"delete-item",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fake Checkout",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pedidos/2/checkout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pedidos",
+								"2",
+								"checkout"
 							]
 						}
 					},

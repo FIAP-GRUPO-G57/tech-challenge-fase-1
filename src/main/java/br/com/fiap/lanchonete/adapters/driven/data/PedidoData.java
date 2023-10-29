@@ -40,4 +40,11 @@ public class PedidoData {
     private LocalDateTime criacao;
 
     private LocalDateTime alteracao;
+
+
+    @Override
+    public String toString() {
+        return "PedidoData [id=" + id + ", cliente=" + cliente + ", itens=" + itens + ", preco=" + preco + ", status="
+                + status + ", criacao=" + criacao + ", alteracao=" + alteracao + "]";
+    }
 }

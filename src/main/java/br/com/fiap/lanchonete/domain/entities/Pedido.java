@@ -21,4 +21,10 @@ public class Pedido {
     private BigDecimal preco;
     private Status status;
     private LocalDateTime criacao;
+
+
+    @Override
+    public String toString(){
+        return "Pedido: " + id + " Cliente: " + cliente.getNome() + " Status: " + status;
+    }
 }

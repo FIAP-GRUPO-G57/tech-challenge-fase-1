@@ -45,6 +45,9 @@ public class ClienteService implements CreateClienteUseCase, GetClienteUseCase {
     public ClienteDTO retrieveCliente(String cpf) {
         Cliente cliente = clienteOutputPort.findByCpf(cpf);
 
+        if (cliente == null ){
+            throw new EntityNotFoundException("Cliente nao encontrado para o cpf :: " + cpf);
+        }
         return clienteMapper.toDTO(cliente);
     }
 }

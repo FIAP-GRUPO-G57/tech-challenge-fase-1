@@ -1,7 +1,9 @@
 package br.com.fiap.lanchonete.adapters.driven.postgress;
 
 import br.com.fiap.lanchonete.adapters.driven.data.PedidoData;;
+import br.com.fiap.lanchonete.adapters.driven.mappers.PedidoDataMapper;
 import br.com.fiap.lanchonete.adapters.driven.repository.PedidoRepository;;
+import br.com.fiap.lanchonete.application.ports.output.ItemPedidoOutputPort;
 import br.com.fiap.lanchonete.application.ports.output.PedidoOutputPort;
 import br.com.fiap.lanchonete.domain.entities.Pedido;
 import br.com.fiap.lanchonete.adapters.driven.enums.Status;
@@ -20,9 +22,13 @@ public class PedidoPersistencePostgreeAdapter implements PedidoOutputPort {
     @Autowired
     public ModelMapper modelMapper;
 
+    @Autowired
+    public PedidoDataMapper pedidoDataMapper;
+
     @Override
     public Pedido get(Long id) {
-        return modelMapper.map(pedidoRepository.findById(id).get(), Pedido.class);
+
+        return pedidoRepository.findById(id).map(pedidoData -> modelMapper.map(pedidoData, Pedido.class)).orElse(null);
     }
 
     @Override
@@ -42,6 +48,13 @@ public class PedidoPersistencePostgreeAdapter implements PedidoOutputPort {
 
     @Override
     public Pedido save(Pedido pedido) {
-        return modelMapper.map(pedidoRepository.save(modelMapper.map(pedido, PedidoData.class)), Pedido.class);
+
+        PedidoData pedidoData = pedidoDataMapper.toData(pedido);
+        pedidoData =  pedidoRepository.save(pedidoData);
+
+        return pedidoDataMapper.toDomain(pedidoData);
+       // return modelMapper.map(pedidoRepository.save(modelMapper.map(pedido, PedidoData.class)), Pedido.class);
     }
+
+
 }
