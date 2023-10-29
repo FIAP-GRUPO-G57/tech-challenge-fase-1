@@ -1,6 +1,6 @@
 package br.com.fiap.lanchonete.adapters.driven.data;
 
-import br.com.fiap.lanchonete.adapters.driven.enums.Categoria;
+import br.com.fiap.lanchonete.domain.vo.Categoria;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

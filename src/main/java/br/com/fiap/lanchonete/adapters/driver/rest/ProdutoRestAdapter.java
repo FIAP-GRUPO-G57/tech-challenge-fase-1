@@ -1,8 +1,10 @@
 package br.com.fiap.lanchonete.adapters.driver.rest;
 
 import br.com.fiap.lanchonete.adapters.driver.dto.ProdutoDTO;
+import br.com.fiap.lanchonete.adapters.driver.exception.EnumValidationException;
 import br.com.fiap.lanchonete.application.ports.input.usecase.*;
 import br.com.fiap.lanchonete.domain.entities.Produto;
+import br.com.fiap.lanchonete.domain.vo.Categoria;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -43,7 +45,18 @@ public class ProdutoRestAdapter {
 
     @GetMapping
     public ResponseEntity<List<ProdutoDTO>> search(@RequestParam(name="categoria", required = false) String categoria) {
-        List<ProdutoDTO> produtos = getProdutoUseCase.findByCategoria(categoria).stream()
+
+        Categoria categoriaEnum = null;
+        try {
+            if (Objects.nonNull(categoria)) {
+                categoriaEnum = Categoria.valueOf(categoria);
+            }
+        } catch (IllegalArgumentException e) {
+
+            throw new EnumValidationException("categoria",categoria);
+        }
+
+        List<ProdutoDTO> produtos = getProdutoUseCase.findByCategoria(categoriaEnum).stream()
                 .map(produto-> modelMapper.map(produto, ProdutoDTO.class))
                 .toList();
         return ResponseEntity.ok(produtos);

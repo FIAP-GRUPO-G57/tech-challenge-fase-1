@@ -43,12 +43,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/cliente",
+							"raw": "http://localhost:8080/cliente",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8080",
 							"path": [
 								"cliente"
 							]
@@ -67,12 +67,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/produtos?categoria=lanche",
+							"raw": "http://localhost:8080/produtos?categoria=lanche",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8080",
 							"path": [
 								"produtos"
 							],
@@ -92,12 +92,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/produtos",
+							"raw": "http://localhost:8080/produtos",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8080",
 							"path": [
 								"produtos"
 							]
@@ -111,12 +111,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/produtos/1",
+							"raw": "http://localhost:8080/produtos/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8080",
 							"path": [
 								"produtos",
 								"1"
@@ -140,12 +140,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/produtos",
+							"raw": "http://localhost:8080/produtos",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8080",
 							"path": [
 								"produtos"
 							]
@@ -168,12 +168,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/produtos",
+							"raw": "http://localhost:8080/produtos",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8080",
 							"path": [
 								"produtos"
 							]
@@ -196,12 +196,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/produtos",
+							"raw": "http://localhost:8080/produtos",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8080",
 							"path": [
 								"produtos"
 							]
@@ -224,12 +224,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/produtos/7",
+							"raw": "http://localhost:8080/produtos/7",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8080",
 							"path": [
 								"produtos",
 								"7"
@@ -253,12 +253,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/produtos/1",
+							"raw": "http://localhost:8080/produtos/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8080",
 							"path": [
 								"produtos",
 								"1"
@@ -278,12 +278,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/pedidos?status=RECEBIDO",
+							"raw": "http://localhost:8080/pedidos?status=RECEBIDO",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8080",
 							"path": [
 								"pedidos"
 							],
@@ -303,12 +303,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/pedidos",
+							"raw": "http://localhost:8080/pedidos",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8080",
 							"path": [
 								"pedidos"
 							]
@@ -322,12 +322,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/pedidos/5",
+							"raw": "http://localhost:8080/pedidos/5",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8080",
 							"path": [
 								"pedidos",
 								"5"
@@ -351,12 +351,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/pedidos",
+							"raw": "http://localhost:8080/pedidos",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8080",
 							"path": [
 								"pedidos"
 							]
@@ -379,12 +379,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/produtos/7",
+							"raw": "http://localhost:8080/produtos/7",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8080",
 							"path": [
 								"produtos",
 								"7"
@@ -408,12 +408,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/produtos/1",
+							"raw": "http://localhost:8080/produtos/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8080",
 							"path": [
 								"produtos",
 								"1"

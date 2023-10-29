@@ -3,6 +3,7 @@ package br.com.fiap.lanchonete.domain.services;
 import br.com.fiap.lanchonete.application.ports.input.usecase.*;
 import br.com.fiap.lanchonete.application.ports.output.ProdutoOutputPort;
 import br.com.fiap.lanchonete.domain.entities.Produto;
+import br.com.fiap.lanchonete.domain.vo.Categoria;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,11 +21,11 @@ public class ProdutoService implements GetProdutoByIdUseCase, GetProdutoUseCase,
 
     @Override
     public Produto get(Long id) {
-        return Objects.nonNull(id)?produtoOutputPort.get(id):null;
+        return produtoOutputPort.get(id);
     }
 
     @Override
-    public List<Produto> findByCategoria(String categoria) {
+    public List<Produto> findByCategoria(Categoria categoria) {
         if(Objects.nonNull(categoria))
             return produtoOutputPort.findByCategoria(categoria);
         return produtoOutputPort.findAll();
@@ -39,6 +40,10 @@ public class ProdutoService implements GetProdutoByIdUseCase, GetProdutoUseCase,
     public Produto update(Long id, Produto produto) {
         if (Objects.nonNull(id)) {
             produto.setId(id);
+            Produto produto1 = produtoOutputPort.get(id);
+
+            if (Objects.isNull(produto1))
+                return null;
             return produtoOutputPort.save(produto);
         }
         return null;

@@ -7,6 +7,8 @@ import br.com.fiap.lanchonete.application.ports.input.usecase.CreateClienteUseCa
 import br.com.fiap.lanchonete.application.ports.input.usecase.GetClienteUseCase;
 import br.com.fiap.lanchonete.application.ports.output.ClienteOutputPort;
 import br.com.fiap.lanchonete.domain.entities.Cliente;
+import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 
@@ -26,6 +28,14 @@ public class ClienteService implements CreateClienteUseCase, GetClienteUseCase {
 
     @Override
     public ClienteDTO createCliente(ClienteDTO cliente) {
+
+        Cliente cliente2  =  clienteOutputPort.findByCpf(cliente.getCpf());
+
+        if (cliente2 != null) {
+
+            throw new EntityExistsException("Cliente ja cadastrado para o cpf :: " + cliente.getCpf());
+        }
+
         Cliente cliente1 =   clienteOutputPort.save(clienteMapper.toDomain(cliente));
 
         return clienteMapper.toDTO(cliente1);

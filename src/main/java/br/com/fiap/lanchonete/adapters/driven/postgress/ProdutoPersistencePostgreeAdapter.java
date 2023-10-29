@@ -4,6 +4,7 @@ import br.com.fiap.lanchonete.adapters.driven.data.ProdutoData;
 import br.com.fiap.lanchonete.adapters.driven.repository.ProdutoRepository;
 import br.com.fiap.lanchonete.application.ports.output.ProdutoOutputPort;
 import br.com.fiap.lanchonete.domain.entities.Produto;
+import br.com.fiap.lanchonete.domain.vo.Categoria;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,8 @@ public class ProdutoPersistencePostgreeAdapter implements ProdutoOutputPort {
 
     @Override
     public Produto get(Long id) {
-        return modelMapper.map(produtoRepository.findById(id).get(), Produto.class);
+
+        return produtoRepository.findById(id).map(produtoData -> modelMapper.map(produtoData, Produto.class)).orElse(null);
     }
 
     @Override
@@ -32,7 +34,7 @@ public class ProdutoPersistencePostgreeAdapter implements ProdutoOutputPort {
     }
 
     @Override
-    public List<Produto> findByCategoria(String categoria) {
+    public List<Produto> findByCategoria(Categoria categoria) {
         return produtoRepository.findByCategoria(categoria).stream()
                 .map(produtoData-> modelMapper.map(produtoData, Produto.class))
                 .toList();
@@ -40,6 +42,8 @@ public class ProdutoPersistencePostgreeAdapter implements ProdutoOutputPort {
 
     @Override
     public Produto save(Produto produto) {
+
+
         return modelMapper.map(produtoRepository.save(modelMapper.map(produto, ProdutoData.class)), Produto.class);
     }
 
