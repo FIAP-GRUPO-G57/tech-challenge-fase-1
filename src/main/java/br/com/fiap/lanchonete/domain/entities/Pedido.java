@@ -1,6 +1,5 @@
 package br.com.fiap.lanchonete.domain.entities;
 
-import br.com.fiap.lanchonete.domain.vo.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,21 +9,22 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import br.com.fiap.lanchonete.domain.enums.StatusEnum;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Pedido {
-    private Long id;
-    private Cliente cliente;
-    private List<Item> itens;
-    private BigDecimal preco;
-    private Status status;
-    private LocalDateTime criacao;
+	private Long id;
+	private Cliente cliente;
+	private List<Item> itens;
+	private BigDecimal preco;
+	private StatusEnum status;
+	private LocalDateTime criacao;
 
-
-    @Override
-    public String toString(){
-        return "Pedido: " + id + " Cliente: " + cliente.getNome() + " Status: " + status;
-    }
+	@Override
+	public String toString() {
+		return "Pedido: " + id + " Cliente: " + cliente.getNome() + " Status: " + status;
+	}
 }

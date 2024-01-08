@@ -1,15 +1,23 @@
-package br.com.fiap.lanchonete.domain.entities;
+package br.com.fiap.lanchonete.domain.dto;
 
-public class Cliente {
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+
+public class ClienteDto {
 
 	private Long id;
 	private String nome;
+
+	@Pattern(regexp = "(\\d{3}).\\d{3}.\\d{3}-\\d{2}$", message = "CPF inválido")
+	@NotNull
 	private String cpf;
+	@Pattern(regexp = "(\\d{2})\\d{5}-\\d{4}$", message = "Telefone inválido")
 	private String telefone;
 	private String endereco;
+	@Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "E-mail inválido")
 	private String email;
 
-	public Cliente(String nome, String cpf, String telefone, String endereco, String email) {
+	public ClienteDto(String nome, String cpf, String telefone, String endereco, String email) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.telefone = telefone;
@@ -17,7 +25,7 @@ public class Cliente {
 		this.email = email;
 	}
 
-	public Cliente() {
+	public ClienteDto() {
 	}
 
 	public String getNome() {
@@ -40,6 +48,10 @@ public class Cliente {
 		return email;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
@@ -60,12 +72,8 @@ public class Cliente {
 		this.email = email;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 }

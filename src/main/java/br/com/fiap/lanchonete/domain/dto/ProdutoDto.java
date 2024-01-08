@@ -1,7 +1,7 @@
-package br.com.fiap.lanchonete.domain.entities;
+package br.com.fiap.lanchonete.domain.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,14 +10,16 @@ import java.util.List;
 
 import br.com.fiap.lanchonete.domain.enums.CategoriaEnum;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Produto {
+@Data
+public class ProdutoDto {
 	private Long id;
+	@NotNull
 	private String nome;
+	@NotNull
 	private CategoriaEnum categoria;
+	@NotNull
 	private BigDecimal preco;
 	private String descricao;
 	private List<String> imagens;

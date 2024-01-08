@@ -1,4 +1,4 @@
-package br.com.fiap.lanchonete.domain.entities;
+package br.com.fiap.lanchonete.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,9 +9,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Item {
-	private Long id;
-	private Pedido pedido;
-	private Produto produto;
-	private BigDecimal preco;
+public class ItemDto {
+    private Long id;
+    private ProdutoDto produto;
+    private BigDecimal preco;
 }
