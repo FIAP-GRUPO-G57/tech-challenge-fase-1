@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lanchonete-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lanchonete
+  template:
+    metadata:
+      labels:
+        app: lanchonete
+    spec:
+      containers:
+        - name: lanchonete-container
+          image: adrianbp/lanchonete-myapp:1.0.0
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              cpu: "1"  # This is the CPU limit
+            requests:
+              cpu: "0.5"  # This is the CPU reques
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://postgres:5432/postgres"
+
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: password
+            - name: SERVER_PORT
+              value: "8080"
+
+
