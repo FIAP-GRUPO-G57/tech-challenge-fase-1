@@ -33,7 +33,7 @@ spec:
                   key: password
           volumeMounts:
             - name: postgres-storage
-              mountPath: /var/lib/postgresql/data
+              mountPath: /var/lib/postgresql/data1/
   volumeClaimTemplates:
     - metadata:
         name: postgres-storage

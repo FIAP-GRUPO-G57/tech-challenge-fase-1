@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: lanchonete-container
-          image: adrianbp/lanchonete-myapp:1.0.0
+          image: adrianbp/lanchonete-myapp:1.0.1
           ports:
             - containerPort: 8080
           resources:
@@ -24,7 +24,7 @@ spec:
               cpu: "0.5"  # This is the CPU reques
           env:
             - name: SPRING_DATASOURCE_URL
-              value: "jdbc:postgresql://postgres:5432/postgres"
+              value: "jdbc:postgresql://postgres-svc:5432/postgres"
 
             - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
