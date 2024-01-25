@@ -2,6 +2,6 @@ package br.com.fiap.lanchonete.application.ports.input.usecase;
 
 import br.com.fiap.lanchonete.domain.entities.Pedido;
 
-public interface CheckoutPedidoUseCase {
-    Pedido checkoutPedido(Pedido pedido);
+public interface UpdatePedidoUseCase {
+    Pedido update(Long id, Pedido pedido);
 }

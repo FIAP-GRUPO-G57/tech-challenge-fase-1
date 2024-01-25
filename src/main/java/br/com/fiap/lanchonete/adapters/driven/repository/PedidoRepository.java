@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface PedidoRepository extends CrudRepository<PedidoData, Long> {
-    List<PedidoData> findByStatus(Status status);
+    List<PedidoData> findByStatusIn(List<Status> status);
 
     List<PedidoData> findAll();
 }

@@ -6,5 +6,5 @@ import br.com.fiap.lanchonete.domain.vo.Status;
 import java.util.List;
 
 public interface GetPedidoUseCase {
-    List<Pedido> findByStatus(Status status);
+    List<Pedido> findByStatus(List<String> statuss);
 }

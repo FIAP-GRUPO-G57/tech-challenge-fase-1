@@ -5,5 +5,10 @@ public enum Status {
     RECEBIDO,
     EM_PREPARACAO,
     PRONTO,
-    FINALIZADO
+    FINALIZADO,
+
+    CONFIRMADO,
+    PENDING,
+    PAGO,
+    REJEITADO
 }
