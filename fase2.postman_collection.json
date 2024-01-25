@@ -1,0 +1,825 @@
+{
+	"info": {
+		"_postman_id": "2ca608a5-93a6-4f9f-ac12-e88e2bfd5f72",
+		"name": "clientes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1146942"
+	},
+	"item": [
+		{
+			"name": "clientes",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/cliente/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"cliente",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by cpf",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/cliente/cpf/111.111.111-00",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"cliente",
+								"cpf",
+								"111.111.111-00"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/cliente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"cliente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \n    \"nome\": \"teste\",\n    \"cpf\" : \"111.111.111-00\",\n    \"telefone\": \"1199999-8888\",\n    \"endereco\": null,\n    \"email\": \"teste@teste.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/cliente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post nome email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \n    \"nome\": \"teste\",\n    \"cpf\" : \"111.111.111-00\",\n    \"telefone\": \"1199999-8888\",\n    \"endereco\": null,\n    \"email\": \"teste@teste.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/cliente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post cpf",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cpf\" : \"222.222.222-00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/cliente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "produtos",
+			"item": [
+				{
+					"name": "search categoria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/produtos?categoria=LANCHE",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"produtos"
+							],
+							"query": [
+								{
+									"key": "categoria",
+									"value": "LANCHE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/produtos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "byId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/produtos/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"produtos",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post Lanche",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \n     \"nome\":\"hamburguer\",\n    \"categoria\":\"LANCHE\",\n    \"preco\":1.10,\n    \"descricao\":\"hamburguer e queijo\",\n    \"imagens\":[\n        \"teste.gif\",\n        \"teste.png\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/produtos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post Bebida",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\":\"suco\",\n    \"categoria\":\"BEBIDA\",\n    \"preco\":0.90,\n    \"descricao\":\"suco\",\n    \"imagens\":[\n        \"teste.gif\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/produtos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post Acompanhamento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\":\"batata\",\n    \"categoria\":\"ACOMPANHAMENTO\",\n    \"preco\":2.00,\n    \"descricao\":\"batata frita\",\n    \"imagens\":[\n        \"teste.gif\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/produtos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n  \n    \"nome\": \"coca\",\n    \"categoria\": \"BEBIDA\",\n    \"preco\": 2.99,\n    \"descricao\": \"Lata \",\n    \"imagens\": [\n        \"coca.gif\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/produtos/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"produtos",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\":\"cheseburguer\",\n    \"categoria\":\"lanche\",\n    \"preco\":10.99,\n    \"descricao\":\"hamburguer e queijo\",\n    \"imagens\":[\n        \"teste.gif\",\n        \"teste.png\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/produtos/15",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"produtos",
+								"15"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "pedidos",
+			"item": [
+				{
+					"name": "search status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pedidos?status=CRIADO",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pedidos"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "CRIADO"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pedidos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pedidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "byId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/pedidos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pedidos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pedido",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cliente\":{\n      \"cpf\":\"111.111.111-00\"\n  },\n    \"itens\":[\n        {\n            \"produto\":{\n                \"id\":1\n            }\n        },\n        {\n            \"produto\":{\n                \"id\":2\n            }\n        },\n        {\n            \"produto\":{\n                \"id\":3\n            }\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/pedidos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pedidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add Items",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\n         {\n              \n                \"produto\": {\n                    \"id\": 4\n\n                }\n\n            }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pedidos/2/add-items",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pedidos",
+								"2",
+								"add-items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Items",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pedidos/2/delete-item/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pedidos",
+								"2",
+								"delete-item",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "checkout",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pedidos/1/checkout?collector={{collector}}&pos={{pos}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pedidos",
+								"1",
+								"checkout"
+							],
+							"query": [
+								{
+									"key": "collector",
+									"value": "{{collector}}"
+								},
+								{
+									"key": "pos",
+									"value": "{{pos}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "confirm",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer APP_USR-151362775144770-012219-ad26be97b5a2ceab5965aaf6409a0d70-1650421194",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "collector",
+								"value": "1650421194",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "pos",
+								"value": "SUC001POS001",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/pedidos/notifications?id=15224098970&topic=merchant_order",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pedidos",
+								"notifications"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "15224098970"
+								},
+								{
+									"key": "topic",
+									"value": "merchant_order"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "paid",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/pedidos/notifications?id=70989795739&topic=payment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pedidos",
+								"notifications"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "70989795739"
+								},
+								{
+									"key": "topic",
+									"value": "payment"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get pedido",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/pedidos?status=RECEBIDO,CRIADO,EM_PREPARACAO,PRONTO",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pedidos"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "RECEBIDO,CRIADO,EM_PREPARACAO,PRONTO"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put em_preparacao",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \n    \"status\": \"EM_PREPARACAO\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/pedidos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pedidos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put pronto",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \n    \"status\": \"PRONTO\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/pedidos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pedidos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put finalizado",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \n    \"status\": \"PRONTO\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/pedidos/20",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"pedidos",
+								"20"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "merchant order",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{app_id}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cash_out\": {\n    \"amount\": 0\n  },\n  \"description\": \"Purchase description.\",\n  \"external_reference\": \"reference_12345\",\n  \"items\": [\n    {\n      \"sku_number\": \"A123K9191938\",\n      \"category\": \"marketplace\",\n      \"title\": \"Point Mini\",\n      \"description\": \"This is the Point Mini\",\n      \"unit_price\": 2,\n      \"quantity\": 1,\n      \"unit_measure\": \"unit\",\n      \"total_amount\": 2\n    }\n  ],\n  \"notification_url\": \"https://eodwbpv9wkmuhla.m.pipedream.net\",\n  \"title\": \"Product order\",\n  \"total_amount\": 2\n}"
+						},
+						"url": {
+							"raw": "https://api.mercadopago.com/merchant_orders/71228623120",
+							"protocol": "https",
+							"host": [
+								"api",
+								"mercadopago",
+								"com"
+							],
+							"path": [
+								"merchant_orders",
+								"71228623120"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "payments",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{app_id}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cash_out\": {\n    \"amount\": 0\n  },\n  \"description\": \"Purchase description.\",\n  \"external_reference\": \"reference_12345\",\n  \"items\": [\n    {\n      \"sku_number\": \"A123K9191938\",\n      \"category\": \"marketplace\",\n      \"title\": \"Point Mini\",\n      \"description\": \"This is the Point Mini\",\n      \"unit_price\": 2,\n      \"quantity\": 1,\n      \"unit_measure\": \"unit\",\n      \"total_amount\": 2\n    }\n  ],\n  \"notification_url\": \"https://eodwbpv9wkmuhla.m.pipedream.net\",\n  \"title\": \"Product order\",\n  \"total_amount\": 2\n}"
+						},
+						"url": {
+							"raw": "https://api.mercadopago.com/v1/payments/71077615162",
+							"protocol": "https",
+							"host": [
+								"api",
+								"mercadopago",
+								"com"
+							],
+							"path": [
+								"v1",
+								"payments",
+								"71077615162"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
