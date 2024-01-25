@@ -32,8 +32,6 @@ public class Pedido {
     @JsonIgnore
     private String pos;
     @JsonIgnore
-    private String token;
-    @JsonIgnore
     private Long orderId;
 
     @Override

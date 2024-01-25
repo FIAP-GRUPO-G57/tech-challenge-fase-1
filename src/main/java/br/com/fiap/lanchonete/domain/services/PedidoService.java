@@ -142,7 +142,6 @@ public class PedidoService implements GetPedidoByIdUseCase, GetPedidoUseCase,
 
         if (!ped.getStatus().equals(Status.CRIADO))
             throw new EntityNotFoundException("Pedido já encaminhado nao pode ser mais alterado :: " + pedido.getId());
-        ped.setToken(pedido.getToken());
         ped.setCollector(pedido.getCollector());
         ped.setPos(pedido.getPos());
         ped.setStatus(Status.PENDING);

@@ -92,7 +92,7 @@ public class PedidoPersistencePostgreeAdapter implements PedidoOutputPort {
                 .title(TITLE)
                 .totalAmount(pedido.getPreco())
                 .build();
-        QuickResponse quickResponse = orderRestClient.post(order, pedido.getCollector(), pedido.getPos(), pedido.getToken());
+        QuickResponse quickResponse = orderRestClient.post(order, pedido.getCollector(), pedido.getPos(), gatewayPayment.getToken());
         pedido.setQrData(quickResponse.getQrData());
         PedidoData pedidoData = modelMapper.map(pedido, PedidoData.class);
         pedidoData.setSteps(pedidoData.getStatus());
@@ -102,7 +102,7 @@ public class PedidoPersistencePostgreeAdapter implements PedidoOutputPort {
 
     @Override
     public Pedido confirm(Pedido pedido) {
-        MerchantOrderResponse merchantOrder = merchantOrderRestClient.get(pedido.getOrderId(), pedido.getToken());
+        MerchantOrderResponse merchantOrder = merchantOrderRestClient.get(pedido.getOrderId(), gatewayPayment.getToken());
         Long pedidoId = Optional.ofNullable(merchantOrder)
                 .map(MerchantOrderResponse::getExternalReference)
                 .map(Long::parseLong)
@@ -120,7 +120,7 @@ public class PedidoPersistencePostgreeAdapter implements PedidoOutputPort {
 
     @Override
     public Pedido pay(Pedido pedido) {
-        PaymentsResponse paymentOrder = paymentsRestClient.get(pedido.getPaymentId(), pedido.getToken());
+        PaymentsResponse paymentOrder = paymentsRestClient.get(pedido.getPaymentId(), gatewayPayment.getToken());
         Long pedidoId = Optional.ofNullable(paymentOrder)
                 .map(PaymentsResponse::getExternalReference)
                 .map(Long::parseLong)

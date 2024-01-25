@@ -36,7 +36,7 @@ public class PaymentsRestClient {
     private HttpHeaders getHttpHeaders(String token) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.add("Authorization", token);
+        headers.add("Authorization", "Bearer "+token);
         return headers;
     }
 

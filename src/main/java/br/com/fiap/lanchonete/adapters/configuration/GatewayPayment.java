@@ -10,4 +10,5 @@ import org.springframework.context.annotation.Configuration;
 public class GatewayPayment {
     private String notification;
     private String sku;
+    private String token;
 }

@@ -8,7 +8,6 @@ import br.com.fiap.lanchonete.application.ports.input.usecase.*;
 import br.com.fiap.lanchonete.domain.entities.Item;
 import br.com.fiap.lanchonete.domain.entities.Pedido;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,8 +110,8 @@ public class PedidoRestAdapter {
     }
 
     @PatchMapping(value = "/{id}/checkout")
-    public ResponseEntity<PedidoDTO> checkoutPedido(@PathVariable Long id, HttpServletRequest request) {
-        Pedido pedido = Pedido.builder().id(id).token(request.getHeader("Authorization")).collector(Long.valueOf(request.getHeader("collector"))).pos(request.getHeader("pos")).build();
+    public ResponseEntity<PedidoDTO> checkoutPedido(@PathVariable Long id, @RequestParam(required = true) Long collector, @RequestParam(required = true) String pos) {
+        Pedido pedido = Pedido.builder().id(id).collector(Long.valueOf(collector)).pos(pos).build();
         Pedido ped = checkoutPedidoUseCase.checkoutPedido(pedido);
         if (Objects.nonNull(ped)) {
             return ResponseEntity.ok(modelMapper.map(ped, PedidoDTO.class));
@@ -121,12 +120,12 @@ public class PedidoRestAdapter {
     }
 
     @PostMapping(value = "/notifications")
-    public ResponseEntity<PedidoDTO> notification(@RequestParam(name = "id") Long id, @RequestParam(name = "topic") String topic, HttpServletRequest request) {
-        Pedido pedido = Pedido.builder().orderId(id).paymentId(id).token(request.getHeader("Authorization")).build();
-        if (("merchant_order").equals(topic)) {
+    public ResponseEntity<PedidoDTO> notification(@RequestParam(name = "id") Long id, @RequestParam(name = "topic") String topic) {
+        Pedido pedido = Pedido.builder().orderId(id).paymentId(id).build();
+        if (("merchant_order").equals(topic) && Objects.nonNull(id)) {
             pedido = confirmPedidoUseCase.confirmPedido(pedido);
         }
-        if (("payment").equals(topic)) {
+        if (("payment").equals(topic) && Objects.nonNull(id)) {
             pedido = payPedidoUseCase.payPedido(pedido);
         }
         return ResponseEntity.ok(modelMapper.map(pedido, PedidoDTO.class));
