@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -37,10 +39,26 @@ public class PedidoSchema {
     @Enumerated(EnumType.STRING)
     private StatusEnum status;
 
+    @Enumerated(EnumType.ORDINAL)
+    private StatusEnum steps;
+
+    @Column(name="qr_Data")
+    private String qrData;
+
+    @Column(name="external_reference")
+    private Long externalReference;
+
+    @Column(name="payment_id")
+    private Long paymentId;
+
+    @Enumerated(EnumType.STRING)
+    private StatusEnum statusPagamento;
+
+    @CreationTimestamp
     private LocalDateTime criacao;
 
+    @UpdateTimestamp
     private LocalDateTime alteracao;
-
 
     @Override
     public String toString() {

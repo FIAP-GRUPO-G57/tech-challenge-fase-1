@@ -1,4 +1,4 @@
-package br.com.fiap.lanchonete.data.usecases.itemPedido;
+package br.com.fiap.lanchonete.data.usecases.pedido;
 
 import br.com.fiap.lanchonete.data.protocols.db.itemPedido.AddItemPedidoRepository;
 import br.com.fiap.lanchonete.data.protocols.db.pedido.GetPedidoRepository;
@@ -25,7 +25,9 @@ public class AddItemPedidoDbUsecase implements AddItemPedidoUsecase {
 	private final GetProdutoRepository getProdutoRepository;
 
 	private final GetPedidoRepository getPedidoRepository;
+	
 	private final SavePedidoRepository savePedidoRepository;
+	
 	private final AddItemPedidoRepository addItemPedidoRepository;
 
 	@Override

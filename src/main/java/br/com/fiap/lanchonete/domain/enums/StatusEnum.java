@@ -1,9 +1,13 @@
 package br.com.fiap.lanchonete.domain.enums;
 
 public enum StatusEnum {
-    CRIADO,
+	CRIADO,
     RECEBIDO,
     EM_PREPARACAO,
     PRONTO,
-    FINALIZADO
+    FINALIZADO,
+    CONFIRMADO,
+    PENDING,
+    PAGO,
+    REJEITADO
 }

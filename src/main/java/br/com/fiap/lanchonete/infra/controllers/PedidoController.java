@@ -2,14 +2,19 @@ package br.com.fiap.lanchonete.infra.controllers;
 
 import br.com.fiap.lanchonete.domain.dto.ItemDto;
 import br.com.fiap.lanchonete.domain.dto.PedidoDto;
+import br.com.fiap.lanchonete.domain.dto.PedidoReduceDto;
 import br.com.fiap.lanchonete.domain.entities.Item;
 import br.com.fiap.lanchonete.domain.entities.Pedido;
-import br.com.fiap.lanchonete.domain.enums.StatusEnum;
 import br.com.fiap.lanchonete.domain.mappers.ItemMapper;
 import br.com.fiap.lanchonete.domain.usecases.itemPedido.AddItemPedidoUsecase;
 import br.com.fiap.lanchonete.domain.usecases.itemPedido.DeleteItemPedidoUsecase;
-import br.com.fiap.lanchonete.domain.usecases.pedido.*;
-import br.com.fiap.lanchonete.main.exception.EnumValidationException;
+import br.com.fiap.lanchonete.domain.usecases.pedido.CheckoutPedidoUsecase;
+import br.com.fiap.lanchonete.domain.usecases.pedido.ConfirmPedidoUsecase;
+import br.com.fiap.lanchonete.domain.usecases.pedido.CreatePedidoUsecase;
+import br.com.fiap.lanchonete.domain.usecases.pedido.GetPedidoByIdUsecase;
+import br.com.fiap.lanchonete.domain.usecases.pedido.GetPedidoUsecase;
+import br.com.fiap.lanchonete.domain.usecases.pedido.PayPedidoUsecase;
+import br.com.fiap.lanchonete.domain.usecases.pedido.UpdatePedidoUsecase;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -22,88 +27,115 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/pedidos")
 @RequiredArgsConstructor
 public class PedidoController {
 
-	private final GetPedidoByIdUsecase getPedidoByIdUsecase;
+    private final GetPedidoByIdUsecase getPedidoByIdUseCase;
 
-	private final FindPedidoByStatusUsecase getPedidoUsecase;
+    private final GetPedidoUsecase getPedidoUseCase;
 
-	private final CreatePedidoUsecase createPedidoUsecase;
+    private final CreatePedidoUsecase createPedidoUseCase;
 
-	private final AddItemPedidoUsecase updatePedidoUsecase;
+    private final UpdatePedidoUsecase updatePedidoUseCase;
 
-	private final DeleteItemPedidoUsecase deleteItemPedidoUsecase;
+    private final AddItemPedidoUsecase addItemPedidoUseCase;
 
-	private final CheckoutPedidoUsecase checkoutPedidoUsecase;
+    private final DeleteItemPedidoUsecase deleteItemPedidoUseCase;
 
-	@Autowired
-	public ModelMapper modelMapper;
+    private final CheckoutPedidoUsecase checkoutPedidoUseCase;
 
-	@Autowired
-	public ItemMapper itemMapper;
+    private final ConfirmPedidoUsecase confirmPedidoUseCase;
 
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<PedidoDto> get(@PathVariable(value = "id") Long id) {
-		Pedido pedido = Optional.ofNullable(getPedidoByIdUsecase.get(id))
-				.orElseThrow(() -> new EntityNotFoundException("Pedido nao encontrado para o id :: " + id));
-		return ResponseEntity.ok().body(modelMapper.map(pedido, PedidoDto.class));
-	}
+    private final PayPedidoUsecase payPedidoUseCase;
 
-	@GetMapping
-	public ResponseEntity<List<PedidoDto>> search(@RequestParam(name = "status", required = false) String status) {
-		StatusEnum statusDomain = null;
+    @Autowired
+    public ModelMapper modelMapper;
 
-		try {
-			if (Objects.nonNull(status)) {
-				statusDomain = StatusEnum.valueOf(status);
-			}
-		} catch (IllegalArgumentException e) {
-			throw new EnumValidationException("Status ", status);
-		}
+    @Autowired
+    public ItemMapper itemMapper;
 
-		List<PedidoDto> pedidos = getPedidoUsecase.findByStatus(statusDomain).stream()
-				.map(pedido -> modelMapper.map(pedido, PedidoDto.class)).toList();
-		return ResponseEntity.ok(pedidos);
-	}
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<PedidoDto> get(@PathVariable(value = "id") Long id) {
+        Pedido pedido = Optional.ofNullable(getPedidoByIdUseCase.get(id))
+                .orElseThrow(() -> new EntityNotFoundException("Pedido nao encontrado para o id :: " + id));
+        return ResponseEntity.ok().body(modelMapper.map(pedido, PedidoDto.class));
+    }
 
-	@PostMapping
-	public ResponseEntity<PedidoDto> post(@Validated @RequestBody PedidoDto pedidoDTO) {
-		Pedido pedido = createPedidoUsecase.create(modelMapper.map(pedidoDTO, Pedido.class));
-		return new ResponseEntity<PedidoDto>(modelMapper.map(pedido, PedidoDto.class), HttpStatus.CREATED);
-	}
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<PedidoDto> put(@PathVariable Long id, @RequestBody PedidoDto PedidoDto) {
+        Pedido pedido = updatePedidoUseCase.update(id, modelMapper.map(PedidoDto, Pedido.class));
+        if (Objects.nonNull(pedido)) {
+            return ResponseEntity.ok(modelMapper.map(pedido, PedidoDto.class));
+        }
+        return ResponseEntity.notFound().build();
+    }
 
-	@PutMapping(value = "/{id}/add-items")
-	public ResponseEntity<PedidoDto> addItemsToPedido(@PathVariable Long id, @RequestBody List<ItemDto> itens) {
-		Pedido pedido = getPedidoByIdUsecase.get(id);
+    @GetMapping
+    public ResponseEntity<List<PedidoReduceDto>> search(@RequestParam(name = "status", required = false) List<String> status) {
+        List<PedidoDto> pedidos = getPedidoUseCase.findByStatus(status).stream()
+                .map(pedido -> modelMapper.map(pedido, PedidoDto.class))
+                .toList();
+        List<PedidoReduceDto> pp = pedidos.stream()
+                .map(p -> PedidoReduceDto.builder()
+                        .id(p.getId())
+                        .status(p.getStatus())
+                        .criacao(p.getCriacao())
+                        .build())
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(pp);
+    }
 
-		if (Objects.nonNull(pedido)) {
-			List<Item> itensDomain = itemMapper.toDomain(itens);
-			pedido = updatePedidoUsecase.addItemPedido(id, itensDomain);
-			return ResponseEntity.ok(modelMapper.map(pedido, PedidoDto.class));
-		}
+    @PostMapping
+    public ResponseEntity<PedidoDto> post(@Validated @RequestBody PedidoDto PedidoDto) {
+        Pedido pedido = createPedidoUseCase.create(modelMapper.map(PedidoDto, Pedido.class));
+        return new ResponseEntity<PedidoDto>(modelMapper.map(pedido, PedidoDto.class), HttpStatus.CREATED);
+    }
 
-		return ResponseEntity.notFound().build();
-	}
+    @PutMapping(value = "/{id}/add-items")
+    public ResponseEntity<PedidoDto> addItemsToPedido(@PathVariable Long id, @RequestBody List<ItemDto> itens) {
+        Pedido pedido = getPedidoByIdUseCase.get(id);
+        if (Objects.nonNull(pedido)) {
+            List<Item> itensDomain = itemMapper.toDomain(itens);
+            pedido = addItemPedidoUseCase.addItemPedido(id, itensDomain);
+            return ResponseEntity.ok(modelMapper.map(pedido, PedidoDto.class));
+        }
 
-	@DeleteMapping(value = "/{id}/delete-item/{idItem}")
-	public ResponseEntity<PedidoDto> deleteItemFromPedido(@PathVariable Long id, @PathVariable Long idItem) {
-		Pedido pedido = getPedidoByIdUsecase.get(id);
+        return ResponseEntity.notFound().build();
+    }
 
-		if (Objects.nonNull(pedido)) {
-			deleteItemPedidoUsecase.deleteItemPedido(id, idItem);
-			return ResponseEntity.noContent().build();
-		}
+    @DeleteMapping(value = "/{id}/delete-item/{idItem}")
+    public ResponseEntity<PedidoDto> deleteItemFromPedido(@PathVariable Long id, @PathVariable Long idItem) {
+        Pedido pedido = getPedidoByIdUseCase.get(id);
+        if (Objects.nonNull(pedido)) {
+            deleteItemPedidoUseCase.deleteItemPedido(id, idItem);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 
-		return ResponseEntity.notFound().build();
-	}
+    @PatchMapping(value = "/{id}/checkout")
+    public ResponseEntity<PedidoDto> checkoutPedido(@PathVariable Long id, @RequestParam(required = true) Long collector, @RequestParam(required = true) String pos) {
+        Pedido pedido = Pedido.builder().id(id).collector(Long.valueOf(collector)).pos(pos).build();
+        Pedido ped = checkoutPedidoUseCase.checkoutPedido(pedido);
+        if (Objects.nonNull(ped)) {
+            return ResponseEntity.ok(modelMapper.map(ped, PedidoDto.class));
+        }
+        return ResponseEntity.noContent().build();
+    }
 
-	@PatchMapping(value = "/{id}/checkout")
-	public ResponseEntity<PedidoDto> checkoutPedido(@PathVariable Long id) {
-		checkoutPedidoUsecase.checkoutPedido(id);
-		return ResponseEntity.noContent().build();
-	}
+    @PostMapping(value = "/notifications")
+    public ResponseEntity<PedidoDto> notification(@RequestParam(name = "id") Long id, @RequestParam(name = "topic") String topic) {
+        Pedido pedido = Pedido.builder().orderId(id).paymentId(id).build();
+        if (("merchant_order").equals(topic) && Objects.nonNull(id)) {
+            pedido = confirmPedidoUseCase.confirmPedido(pedido);
+        }
+        if (("payment").equals(topic) && Objects.nonNull(id)) {
+            pedido = payPedidoUseCase.payPedido(pedido);
+        }
+        return ResponseEntity.ok(modelMapper.map(pedido, PedidoDto.class));
+    }
 }

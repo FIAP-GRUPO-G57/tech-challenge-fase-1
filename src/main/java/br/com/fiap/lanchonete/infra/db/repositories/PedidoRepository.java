@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface PedidoRepository extends CrudRepository<PedidoSchema, Long> {
-    List<PedidoSchema> findByStatus(StatusEnum status);
+	List<PedidoSchema> findByStatusIn(List<StatusEnum> status);
     List<PedidoSchema> findAll();
 }

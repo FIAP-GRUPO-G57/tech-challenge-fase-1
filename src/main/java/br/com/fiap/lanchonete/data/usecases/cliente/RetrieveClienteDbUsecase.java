@@ -4,19 +4,19 @@ import br.com.fiap.lanchonete.data.protocols.db.cliente.FindClienteByCpfReposito
 import br.com.fiap.lanchonete.domain.dto.ClienteDto;
 import br.com.fiap.lanchonete.domain.entities.Cliente;
 import br.com.fiap.lanchonete.domain.mappers.ClienteMapper;
-import br.com.fiap.lanchonete.domain.usecases.cliente.GetClienteUsecase;
+import br.com.fiap.lanchonete.domain.usecases.cliente.GetClienteByCpfUsecase;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Transactional
-public class RetrieveClienteDbUsecase implements GetClienteUsecase {
+public class RetrieveClienteDbUsecase implements GetClienteByCpfUsecase {
 
 	private final FindClienteByCpfRepository findClienteByCpfRepository;
 
 	private final ClienteMapper clienteMapper;
 
-	public RetrieveClienteDbUsecase(
-			FindClienteByCpfRepository findClienteByCpfRepository, ClienteMapper clienteMapper) {
+	public RetrieveClienteDbUsecase(FindClienteByCpfRepository findClienteByCpfRepository,
+			ClienteMapper clienteMapper) {
 		this.findClienteByCpfRepository = findClienteByCpfRepository;
 		this.clienteMapper = clienteMapper;
 	}
@@ -28,7 +28,7 @@ public class RetrieveClienteDbUsecase implements GetClienteUsecase {
 		if (cliente == null) {
 			throw new EntityNotFoundException("Cliente nao encontrado para o cpf :: " + cpf);
 		}
-
+		
 		return clienteMapper.toDTO(cliente);
 	}
 

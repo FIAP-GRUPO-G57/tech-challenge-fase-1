@@ -1,4 +1,4 @@
-package br.com.fiap.lanchonete.data.usecases.itemPedido;
+package br.com.fiap.lanchonete.data.usecases.pedido;
 
 import br.com.fiap.lanchonete.data.protocols.db.itemPedido.DeleteItemPedidoRepository;
 import br.com.fiap.lanchonete.data.protocols.db.pedido.GetPedidoRepository;
@@ -20,9 +20,10 @@ import java.util.Objects;
 public class DeleteItemPedidoDbUsecase implements DeleteItemPedidoUsecase {
 
 	private final GetPedidoRepository getPedidoRepository;
-	private final SavePedidoRepository savePedidoRepository;
 
 	private final DeleteItemPedidoRepository deleteItemPedidoRepository;
+
+	private final SavePedidoRepository savePedidoRepository;
 
 	@Override
 	public void deleteItemPedido(Long id, Long idItem) {

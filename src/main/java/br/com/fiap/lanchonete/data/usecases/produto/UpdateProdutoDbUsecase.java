@@ -10,27 +10,27 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
-
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class UpdateProdutoDbUsecase implements UpdateProdutoUsecase {
 
 	private final GetProdutoRepository getProdutoRepository;
-    private final SaveProdutoRepository saveProdutoRepository;
+	
+	private final SaveProdutoRepository saveProdutoRepository;
 
-    @Override
-    public Produto update(Long id, Produto produto) {
-        if (Objects.nonNull(id)) {
-            produto.setId(id);
-            Produto produto1 = getProdutoRepository.get(id);
+	@Override
+	public Produto update(Long id, Produto produto) {
+		if (Objects.nonNull(id)) {
+			produto.setId(id);
+			Produto produto1 = getProdutoRepository.get(id);
 
-            if (Objects.isNull(produto1))
-                return null;
-            
-            return saveProdutoRepository.save(produto);
-        }
-        return null;
-    }
+			if (Objects.isNull(produto1))
+				return null;
+
+			return saveProdutoRepository.save(produto);
+		}
+		return null;
+	}
 
 }

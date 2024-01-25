@@ -1,7 +1,6 @@
 package br.com.fiap.lanchonete.data.usecases.cliente;
 
-
-import org.apache.commons.lang3.ObjectUtils;
+import java.util.Optional;
 
 import br.com.fiap.lanchonete.data.protocols.db.cliente.FindClienteByCpfRepository;
 import br.com.fiap.lanchonete.data.protocols.db.cliente.SaveClienteRepository;
@@ -12,32 +11,35 @@ import br.com.fiap.lanchonete.domain.usecases.cliente.CreateClienteUsecase;
 import jakarta.persistence.EntityExistsException;
 import jakarta.transaction.Transactional;
 
-
 @Transactional
 public class CreateClienteDbUsecase implements CreateClienteUsecase {
 
-    private final SaveClienteRepository saveClienteRepository;
-    
-    private final FindClienteByCpfRepository findClienteByCpfRepository;
+	private final SaveClienteRepository saveClienteRepository;
 
-    private final ClienteMapper clienteMapper;
+	private final FindClienteByCpfRepository findClienteByCpfRepository;
 
-    public CreateClienteDbUsecase(SaveClienteRepository saveClienteRepository, FindClienteByCpfRepository findClienteByCpfRepository, ClienteMapper clienteMapper) {
-        this.saveClienteRepository = saveClienteRepository;
-        this.findClienteByCpfRepository = findClienteByCpfRepository;
-        this.clienteMapper = clienteMapper;
-    }
+	private final ClienteMapper clienteMapper;
 
-    @Override
-    public ClienteDto createCliente(ClienteDto clienteDto) {
-        boolean clienteAlreadyExists = ObjectUtils.isNotEmpty(findClienteByCpfRepository.findByCpf(clienteDto.getCpf()));
+	public CreateClienteDbUsecase(SaveClienteRepository saveClienteRepository,
+			FindClienteByCpfRepository findClienteByCpfRepository, ClienteMapper clienteMapper) {
+		this.saveClienteRepository = saveClienteRepository;
+		this.findClienteByCpfRepository = findClienteByCpfRepository;
+		this.clienteMapper = clienteMapper;
+	}
 
-        if (clienteAlreadyExists) {
-            throw new EntityExistsException("Cliente ja cadastrado para o cpf :: " + clienteDto.getCpf());
-        }
+	@Override
+	public ClienteDto createCliente(ClienteDto cliente) {
 
-        Cliente cliente = saveClienteRepository.save(clienteMapper.toDomain(clienteDto));
-        return clienteMapper.toDTO(cliente);
-    }
-    
+		Cliente cliente2 = Optional.ofNullable(cliente).map(ClienteDto::getCpf)
+				.map(cpf -> findClienteByCpfRepository.findByCpf(cpf)).orElse(null);
+
+		if (cliente2 != null) {
+			throw new EntityExistsException("Cliente ja cadastrado para o cpf :: " + cliente.getCpf());
+		}
+
+		Cliente cliente1 = saveClienteRepository.save(clienteMapper.toDomain(cliente));
+
+		return clienteMapper.toDTO(cliente1);
+	}
+
 }

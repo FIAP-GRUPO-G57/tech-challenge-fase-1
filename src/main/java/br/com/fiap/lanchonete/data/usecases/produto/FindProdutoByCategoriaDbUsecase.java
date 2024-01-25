@@ -19,6 +19,7 @@ import java.util.Objects;
 public class FindProdutoByCategoriaDbUsecase implements FindProdutoByCategoriaUsecase {
 
     private final FindProdutoByCategoriaRepository findProdutoByCategoriaRepository;
+    
     private final FindAllProdutosRepository findAllProdutosRepository;
 
     @Override

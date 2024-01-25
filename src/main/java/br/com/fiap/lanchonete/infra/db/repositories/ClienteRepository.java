@@ -5,7 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import br.com.fiap.lanchonete.infra.db.schemas.ClienteSchema;
 
+import java.util.List;
+
 @Repository
 public interface ClienteRepository extends CrudRepository<ClienteSchema, Long> {
-    ClienteSchema findByCpf(String cpf);
+	ClienteSchema findByCpf(String cpf);
+	List<ClienteSchema> findAll();
 }

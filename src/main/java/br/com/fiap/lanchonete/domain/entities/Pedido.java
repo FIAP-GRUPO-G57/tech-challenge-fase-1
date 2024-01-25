@@ -1,5 +1,6 @@
 package br.com.fiap.lanchonete.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,15 +17,26 @@ import br.com.fiap.lanchonete.domain.enums.StatusEnum;
 @AllArgsConstructor
 @Builder
 public class Pedido {
-	private Long id;
-	private Cliente cliente;
-	private List<Item> itens;
-	private BigDecimal preco;
-	private StatusEnum status;
-	private LocalDateTime criacao;
+    private Long id;
+    private Cliente cliente;
+    private List<Item> itens;
+    private BigDecimal preco;
+    private StatusEnum status;
+    private LocalDateTime criacao;
+    private String qrData;
+    private Long externalReference;
+    private Long paymentId;
+    private StatusEnum statusPagamento;
 
-	@Override
-	public String toString() {
-		return "Pedido: " + id + " Cliente: " + cliente.getNome() + " Status: " + status;
-	}
+    @JsonIgnore
+    private Long collector;
+    @JsonIgnore
+    private String pos;
+    @JsonIgnore
+    private Long orderId;
+
+    @Override
+    public String toString(){
+        return "Pedido: " + id + " Cliente: " + cliente.getNome() + " Status: " + status;
+    }
 }
