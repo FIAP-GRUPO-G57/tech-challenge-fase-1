@@ -1,7 +1,7 @@
 package br.com.fiap.lanchonete.infra.db.mappers;
 
 import br.com.fiap.lanchonete.core.domain.entities.Item;
-import br.com.fiap.lanchonete.infra.db.schemas.ItemSchema;
+import br.com.fiap.lanchonete.infra.db.entities.ItemEntity;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -17,19 +17,19 @@ public class ItemDataMapper {
 		this.modelMapper = modelMapper;
 	}
 
-	public Item toDomain(ItemSchema data) {
+	public Item toDomain(ItemEntity data) {
 		return modelMapper.map(data, Item.class);
 	}
 
-	public ItemSchema toData(Item item) {
-		return modelMapper.map(item, ItemSchema.class);
+	public ItemEntity toData(Item item) {
+		return modelMapper.map(item, ItemEntity.class);
 	}
 
-	public List<Item> toDomain(List<ItemSchema> datas) {
+	public List<Item> toDomain(List<ItemEntity> datas) {
 		return datas.stream().map(this::toDomain).toList();
 	}
 
-	public List<ItemSchema> toData(List<Item> items) {
+	public List<ItemEntity> toData(List<Item> items) {
 		return items.stream().map(this::toData).toList();
 	}
 	

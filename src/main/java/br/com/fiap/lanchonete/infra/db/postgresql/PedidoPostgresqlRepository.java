@@ -4,9 +4,9 @@ import br.com.fiap.lanchonete.core.domain.entities.OrdemPedido;
 import br.com.fiap.lanchonete.core.domain.entities.Pedido;
 import br.com.fiap.lanchonete.core.domain.enums.StatusEnum;
 import br.com.fiap.lanchonete.core.usecases.ports.repositories.PedidoRepositoryPort;
+import br.com.fiap.lanchonete.infra.db.entities.PedidoEntity;
 import br.com.fiap.lanchonete.infra.db.mappers.PedidoDataMapper;
 import br.com.fiap.lanchonete.infra.db.repositories.PedidoRepository;
-import br.com.fiap.lanchonete.infra.db.schemas.PedidoSchema;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +41,10 @@ public class PedidoPostgresqlRepository implements PedidoRepositoryPort {
 	@Override
 	public List<Pedido> findByStatus(List<String> statuss) {
 		List<StatusEnum> enums = statuss.stream().map(ss -> StatusEnum.valueOf(ss)).collect(Collectors.toList());
-		List<PedidoSchema> list = pedidoRepository.findByStatusIn(enums);
+		List<PedidoEntity> list = pedidoRepository.findByStatusIn(enums);
 		if (!list.isEmpty()) {
 			Collections.sort(list,
-					Comparator.comparing(PedidoSchema::getSteps).reversed().thenComparing(PedidoSchema::getCriacao));
+					Comparator.comparing(PedidoEntity::getSteps).reversed().thenComparing(PedidoEntity::getCriacao));
 			return list.stream().map(pedidoSchema -> modelMapper.map(pedidoSchema, Pedido.class)).toList();
 		}
 		return null;
@@ -52,14 +52,14 @@ public class PedidoPostgresqlRepository implements PedidoRepositoryPort {
 
 	@Override
 	public Pedido save(Pedido pedido) {
-		PedidoSchema pedidoSchema = pedidoDataMapper.toData(pedido);
+		PedidoEntity pedidoSchema = pedidoDataMapper.toData(pedido);
 		pedidoSchema.setSteps(pedidoSchema.getStatus());
 		return modelMapper.map(pedidoRepository.save(pedidoSchema), Pedido.class);
 	}
 
 	@Override
 	public Pedido checkout(Pedido pedido) {
-		PedidoSchema pedidoSchema = modelMapper.map(pedido, PedidoSchema.class);
+		PedidoEntity pedidoSchema = modelMapper.map(pedido, PedidoEntity.class);
 		pedidoSchema.setSteps(pedidoSchema.getStatus());
 		pedidoRepository.save(pedidoSchema);
 		return pedido;
@@ -72,7 +72,7 @@ public class PedidoPostgresqlRepository implements PedidoRepositoryPort {
 					.map(pedidoData -> modelMapper.map(pedidoData, Pedido.class)).orElse(null);
 			ped.setExternalReference(pedido.getOrderId());
 			ped.setStatus(StatusEnum.CONFIRMADO);
-			PedidoSchema pedidoSchema = modelMapper.map(ped, PedidoSchema.class);
+			PedidoEntity pedidoSchema = modelMapper.map(ped, PedidoEntity.class);
 			pedidoSchema.setSteps(pedidoSchema.getStatus());
 			return modelMapper.map(pedidoRepository.save(pedidoSchema), Pedido.class);
 		}
@@ -91,7 +91,7 @@ public class PedidoPostgresqlRepository implements PedidoRepositoryPort {
 			} else {
 				ped.setStatusPagamento(StatusEnum.REJEITADO);
 			}
-			PedidoSchema pedidoSchema = modelMapper.map(ped, PedidoSchema.class);
+			PedidoEntity pedidoSchema = modelMapper.map(ped, PedidoEntity.class);
 			pedidoSchema.setSteps(pedidoSchema.getStatus());
 			return modelMapper.map(pedidoRepository.save(pedidoSchema), Pedido.class);
 		}

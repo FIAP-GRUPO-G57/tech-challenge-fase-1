@@ -2,9 +2,9 @@ package br.com.fiap.lanchonete.infra.db.postgresql;
 
 import br.com.fiap.lanchonete.core.domain.entities.Item;
 import br.com.fiap.lanchonete.core.usecases.ports.repositories.ItemPedidoRepositoryPort;
+import br.com.fiap.lanchonete.infra.db.entities.ItemEntity;
 import br.com.fiap.lanchonete.infra.db.mappers.ItemDataMapper;
 import br.com.fiap.lanchonete.infra.db.repositories.ItemPedidoRepository;
-import br.com.fiap.lanchonete.infra.db.schemas.ItemSchema;
 
 import org.springframework.stereotype.Component;
 
@@ -27,7 +27,7 @@ public class ItemPedidoPostgresqlRepository implements ItemPedidoRepositoryPort 
 
 	@Override
 	public Item addItemPedido(Long id, Item itens) {
-		ItemSchema itemData = itemDataMapper.toData(itens);
+		ItemEntity itemData = itemDataMapper.toData(itens);
 		itemPedidoRepository.save(itemData);
 		return itemDataMapper.toDomain(itemData);
 	}

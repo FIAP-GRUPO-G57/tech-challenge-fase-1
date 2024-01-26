@@ -3,8 +3,8 @@ package br.com.fiap.lanchonete.infra.db.postgresql;
 import br.com.fiap.lanchonete.core.domain.entities.Produto;
 import br.com.fiap.lanchonete.core.domain.enums.CategoriaEnum;
 import br.com.fiap.lanchonete.core.usecases.ports.repositories.ProdutoRepositoryPort;
+import br.com.fiap.lanchonete.infra.db.entities.ProdutoEntity;
 import br.com.fiap.lanchonete.infra.db.repositories.ProdutoRepository;
-import br.com.fiap.lanchonete.infra.db.schemas.ProdutoSchema;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +41,11 @@ public class ProdutoPostgresqlRepository implements ProdutoRepositoryPort {
 
 	@Override
 	public Produto save(Produto produto) {
-		return modelMapper.map(produtoRepository.save(modelMapper.map(produto, ProdutoSchema.class)), Produto.class);
+		return modelMapper.map(produtoRepository.save(modelMapper.map(produto, ProdutoEntity.class)), Produto.class);
 	}
 
 	@Override
 	public void delete(Produto produto) {
-		produtoRepository.delete(modelMapper.map(produto, ProdutoSchema.class));
+		produtoRepository.delete(modelMapper.map(produto, ProdutoEntity.class));
 	}
 }

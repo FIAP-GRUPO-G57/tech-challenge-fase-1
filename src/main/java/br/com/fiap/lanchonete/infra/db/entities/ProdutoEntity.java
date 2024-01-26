@@ -1,4 +1,4 @@
-package br.com.fiap.lanchonete.infra.db.schemas;
+package br.com.fiap.lanchonete.infra.db.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,7 +17,7 @@ import br.com.fiap.lanchonete.core.domain.enums.CategoriaEnum;
 @Builder
 @Entity
 @Table(name="produto")
-public class ProdutoSchema {
+public class ProdutoEntity {
 
     @Id
     @Column(name="id")

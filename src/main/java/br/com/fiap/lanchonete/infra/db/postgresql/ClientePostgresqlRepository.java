@@ -2,9 +2,9 @@ package br.com.fiap.lanchonete.infra.db.postgresql;
 
 import br.com.fiap.lanchonete.core.domain.entities.Cliente;
 import br.com.fiap.lanchonete.core.usecases.ports.repositories.ClienteRepositoryPort;
+import br.com.fiap.lanchonete.infra.db.entities.ClienteEntity;
 import br.com.fiap.lanchonete.infra.db.mappers.ClienteDataMapper;
 import br.com.fiap.lanchonete.infra.db.repositories.ClienteRepository;
-import br.com.fiap.lanchonete.infra.db.schemas.ClienteSchema;
 
 import org.springframework.stereotype.Component;
 
@@ -24,7 +24,7 @@ public class ClientePostgresqlRepository implements ClienteRepositoryPort {
 
     @Override
     public Cliente save(Cliente cliente) {
-        ClienteSchema clienteSchema = clienteDataMapper.toData(cliente);
+        ClienteEntity clienteSchema = clienteDataMapper.toData(cliente);
         clienteSchema = clienteRepository.save(clienteSchema);
         Cliente cli = clienteDataMapper.toDomain(clienteSchema);
         return  cli;
@@ -32,7 +32,7 @@ public class ClientePostgresqlRepository implements ClienteRepositoryPort {
 
     @Override
     public Cliente findByCpf(String cpf) {
-    	ClienteSchema clienteSchema = clienteRepository.findByCpf(cpf);
+    	ClienteEntity clienteSchema = clienteRepository.findByCpf(cpf);
         Cliente cli = null;
         if (clienteSchema != null) {
             cli = clienteDataMapper.toDomain(clienteSchema);

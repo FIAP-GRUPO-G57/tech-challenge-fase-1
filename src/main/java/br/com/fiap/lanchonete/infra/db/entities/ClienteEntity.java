@@ -1,11 +1,11 @@
-package br.com.fiap.lanchonete.infra.db.schemas;
+package br.com.fiap.lanchonete.infra.db.entities;
 
 import jakarta.persistence.*;
 
 
 @Entity
 @Table(name="cliente")
-public class ClienteSchema {
+public class ClienteEntity {
 
     //Incluir os atributos da classe ClienteData conforme a classe cliente do domínio
     //Incluir os métodos getters e setters
@@ -27,7 +27,7 @@ public class ClienteSchema {
     private String email;
 
 
-    public ClienteSchema(Long id, String nome, String cpf, String telefone, String email) {
+    public ClienteEntity(Long id, String nome, String cpf, String telefone, String email) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -35,7 +35,7 @@ public class ClienteSchema {
         this.email = email;
     }
 
-    public ClienteSchema() {
+    public ClienteEntity() {
 
     }
 

@@ -1,4 +1,4 @@
-package br.com.fiap.lanchonete.infra.db.schemas;
+package br.com.fiap.lanchonete.infra.db.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @Builder
 @Entity
 @Table(name="item")
-public class ItemSchema {
+public class ItemEntity {
 
     @Id
     @Column(name="id")
@@ -25,12 +25,12 @@ public class ItemSchema {
     @ManyToOne
     @JoinColumn(name = "pedido_id")
     @NotNull
-    private PedidoSchema pedido;
+    private PedidoEntity pedido;
 
     @ManyToOne
     @JoinColumn(name = "produto_id")
     @NotNull
-    private ProdutoSchema produto;
+    private ProdutoEntity produto;
 
     @Column(name="preco")
     @NotNull

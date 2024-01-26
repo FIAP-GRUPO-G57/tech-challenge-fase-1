@@ -1,7 +1,7 @@
 package br.com.fiap.lanchonete.infra.db.mappers;
 
 import br.com.fiap.lanchonete.core.domain.entities.Cliente;
-import br.com.fiap.lanchonete.infra.db.schemas.ClienteSchema;
+import br.com.fiap.lanchonete.infra.db.entities.ClienteEntity;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -15,14 +15,14 @@ public class ClienteDataMapper {
 		this.modelMapper = modelMapper;
 	}
 
-	public Cliente toDomain(ClienteSchema data) {
+	public Cliente toDomain(ClienteEntity data) {
 
 		return modelMapper.map(data, Cliente.class);
 	}
 
-	public ClienteSchema toData(Cliente cliente) {
+	public ClienteEntity toData(Cliente cliente) {
 
-		return modelMapper.map(cliente, ClienteSchema.class);
+		return modelMapper.map(cliente, ClienteEntity.class);
 	}
 	
 }

@@ -1,4 +1,4 @@
-package br.com.fiap.lanchonete.infra.db.schemas;
+package br.com.fiap.lanchonete.infra.db.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name="pedido")
-public class PedidoSchema {
+public class PedidoEntity {
 
     @Id
     @Column(name="id")
@@ -29,10 +29,10 @@ public class PedidoSchema {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    private ClienteSchema cliente;
+    private ClienteEntity cliente;
 
     @OneToMany(mappedBy="pedido", cascade = {CascadeType.PERSIST})
-    private List<ItemSchema> itens;
+    private List<ItemEntity> itens;
 
     @Column(name="preco")
     private BigDecimal preco;
