@@ -1,4 +1,4 @@
-package br.com.fiap.lanchonete;
+package br.com.fiap.lanchonete.main;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
