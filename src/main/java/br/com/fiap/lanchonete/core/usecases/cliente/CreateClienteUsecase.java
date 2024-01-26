@@ -10,13 +10,13 @@ import jakarta.persistence.EntityExistsException;
 import jakarta.transaction.Transactional;
 
 @Transactional
-public class CreateClienteDbUsecase {
+public class CreateClienteUsecase {
 
 	private final ClienteRepositoryPort clientePort;
 
 	private final ClienteMapper clienteMapper;
 
-	public CreateClienteDbUsecase(ClienteRepositoryPort clientePort, ClienteMapper clienteMapper) {
+	public CreateClienteUsecase(ClienteRepositoryPort clientePort, ClienteMapper clienteMapper) {
 		this.clientePort = clientePort;
 		this.clienteMapper = clienteMapper;
 	}

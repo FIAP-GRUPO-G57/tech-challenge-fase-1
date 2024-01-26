@@ -21,7 +21,7 @@ import java.util.Optional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class CreatePedidoDbUsecase {
+public class CreatePedidoUsecase {
 
 	private final ClienteRepositoryPort clientePort;
 

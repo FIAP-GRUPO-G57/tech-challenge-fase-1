@@ -4,28 +4,24 @@ import br.com.fiap.lanchonete.core.domain.entities.Pedido;
 import br.com.fiap.lanchonete.core.usecases.ports.repositories.PedidoRepositoryPort;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-
-import java.util.Objects;
-
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UpdatePedidoDbUsecase {
+public class FindPedidoByStatusUsecase {
 
 	private final PedidoRepositoryPort pedidoPort;
-
-	public Pedido update(Long id, Pedido pedido) {
-		if (Objects.nonNull(id)) {
-			pedido.setId(id);
-			Pedido pedido1 = pedidoPort.get(id);
-			if (Objects.isNull(pedido1))
-				return null;
-			pedido1.setStatus(pedido.getStatus());
-			return pedidoPort.save(pedido1);
+	
+	public List<Pedido> findByStatus(List<String> statuss) {
+		if (Objects.nonNull(statuss)) {
+			return pedidoPort.findByStatus(statuss);
 		}
-		return null;
+
+		return pedidoPort.findAll();
 	}
 
 }

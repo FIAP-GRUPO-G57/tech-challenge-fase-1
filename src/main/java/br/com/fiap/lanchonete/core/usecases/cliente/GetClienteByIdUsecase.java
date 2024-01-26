@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class GetClienteByIdDbUsecase {
+public class GetClienteByIdUsecase {
 
 	private final ClienteRepositoryPort clientePort;
 

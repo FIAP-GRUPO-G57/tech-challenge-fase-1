@@ -6,15 +6,15 @@ import br.com.fiap.lanchonete.core.domain.dto.PedidoReduceDto;
 import br.com.fiap.lanchonete.core.domain.entities.Item;
 import br.com.fiap.lanchonete.core.domain.entities.Pedido;
 import br.com.fiap.lanchonete.core.domain.mappers.ItemMapper;
-import br.com.fiap.lanchonete.core.usecases.pedido.AddItemPedidoDbUsecase;
-import br.com.fiap.lanchonete.core.usecases.pedido.CheckoutPedidoDbUsecase;
-import br.com.fiap.lanchonete.core.usecases.pedido.ConfirmPedidoDbUsecase;
-import br.com.fiap.lanchonete.core.usecases.pedido.CreatePedidoDbUsecase;
-import br.com.fiap.lanchonete.core.usecases.pedido.DeleteItemPedidoDbUsecase;
-import br.com.fiap.lanchonete.core.usecases.pedido.FindPedidoByStatusDbUsecase;
-import br.com.fiap.lanchonete.core.usecases.pedido.GetPedidoByIdDbUsecase;
-import br.com.fiap.lanchonete.core.usecases.pedido.PayPedidoDbUsecase;
-import br.com.fiap.lanchonete.core.usecases.pedido.UpdatePedidoDbUsecase;
+import br.com.fiap.lanchonete.core.usecases.pedido.AddItemPedidoUsecase;
+import br.com.fiap.lanchonete.core.usecases.pedido.CheckoutPedidoUsecase;
+import br.com.fiap.lanchonete.core.usecases.pedido.ConfirmPedidoUsecase;
+import br.com.fiap.lanchonete.core.usecases.pedido.CreatePedidoUsecase;
+import br.com.fiap.lanchonete.core.usecases.pedido.DeleteItemPedidoUsecase;
+import br.com.fiap.lanchonete.core.usecases.pedido.FindPedidoByStatusUsecase;
+import br.com.fiap.lanchonete.core.usecases.pedido.GetPedidoByIdUsecase;
+import br.com.fiap.lanchonete.core.usecases.pedido.PayPedidoUsecase;
+import br.com.fiap.lanchonete.core.usecases.pedido.UpdatePedidoUsecase;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -34,23 +34,23 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PedidoController {
 
-    private final GetPedidoByIdDbUsecase getPedidoByIdDbUsecase;
+    private final GetPedidoByIdUsecase getPedidoByIdUsecase;
 
-    private final FindPedidoByStatusDbUsecase findPedidoByStatusDbUsecase;
+    private final FindPedidoByStatusUsecase findPedidoByStatusUsecase;
 
-    private final CreatePedidoDbUsecase createPedidoDbUsecase;
+    private final CreatePedidoUsecase createPedidoUsecase;
 
-    private final UpdatePedidoDbUsecase updatePedidoDbUsecase;
+    private final UpdatePedidoUsecase updatePedidoUsecase;
 
-    private final AddItemPedidoDbUsecase addItemPedidoDbUsecase;
+    private final AddItemPedidoUsecase addItemPedidoUsecase;
 
-    private final DeleteItemPedidoDbUsecase deleteItemPedidoDbUsecase;
+    private final DeleteItemPedidoUsecase deleteItemPedidoUsecase;
 
-    private final CheckoutPedidoDbUsecase checkoutPedidoDbUsecase;
+    private final CheckoutPedidoUsecase checkoutPedidoUsecase;
 
-    private final ConfirmPedidoDbUsecase confirmPedidoDbUsecase;
+    private final ConfirmPedidoUsecase confirmPedidoUsecase;
 
-    private final PayPedidoDbUsecase payPedidoDbUsecase;
+    private final PayPedidoUsecase payPedidoUsecase;
 
     @Autowired
     public ModelMapper modelMapper;
@@ -60,14 +60,14 @@ public class PedidoController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<PedidoDto> get(@PathVariable(value = "id") Long id) {
-        Pedido pedido = Optional.ofNullable(getPedidoByIdDbUsecase.get(id))
+        Pedido pedido = Optional.ofNullable(getPedidoByIdUsecase.get(id))
                 .orElseThrow(() -> new EntityNotFoundException("Pedido nao encontrado para o id :: " + id));
         return ResponseEntity.ok().body(modelMapper.map(pedido, PedidoDto.class));
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<PedidoDto> put(@PathVariable Long id, @RequestBody PedidoDto PedidoDto) {
-        Pedido pedido = updatePedidoDbUsecase.update(id, modelMapper.map(PedidoDto, Pedido.class));
+        Pedido pedido = updatePedidoUsecase.update(id, modelMapper.map(PedidoDto, Pedido.class));
         if (Objects.nonNull(pedido)) {
             return ResponseEntity.ok(modelMapper.map(pedido, PedidoDto.class));
         }
@@ -76,7 +76,7 @@ public class PedidoController {
 
     @GetMapping
     public ResponseEntity<List<PedidoReduceDto>> search(@RequestParam(name = "status", required = false) List<String> status) {
-        List<PedidoDto> pedidos = findPedidoByStatusDbUsecase.findByStatus(status).stream()
+        List<PedidoDto> pedidos = findPedidoByStatusUsecase.findByStatus(status).stream()
                 .map(pedido -> modelMapper.map(pedido, PedidoDto.class))
                 .toList();
         List<PedidoReduceDto> pp = pedidos.stream()
@@ -91,16 +91,16 @@ public class PedidoController {
 
     @PostMapping
     public ResponseEntity<PedidoDto> post(@Validated @RequestBody PedidoDto PedidoDto) {
-        Pedido pedido = createPedidoDbUsecase.create(modelMapper.map(PedidoDto, Pedido.class));
+        Pedido pedido = createPedidoUsecase.create(modelMapper.map(PedidoDto, Pedido.class));
         return new ResponseEntity<PedidoDto>(modelMapper.map(pedido, PedidoDto.class), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{id}/add-items")
     public ResponseEntity<PedidoDto> addItemsToPedido(@PathVariable Long id, @RequestBody List<ItemDto> itens) {
-        Pedido pedido = getPedidoByIdDbUsecase.get(id);
+        Pedido pedido = getPedidoByIdUsecase.get(id);
         if (Objects.nonNull(pedido)) {
             List<Item> itensDomain = itemMapper.toDomain(itens);
-            pedido = addItemPedidoDbUsecase.addItemPedido(id, itensDomain);
+            pedido = addItemPedidoUsecase.addItemPedido(id, itensDomain);
             return ResponseEntity.ok(modelMapper.map(pedido, PedidoDto.class));
         }
 
@@ -109,9 +109,9 @@ public class PedidoController {
 
     @DeleteMapping(value = "/{id}/delete-item/{idItem}")
     public ResponseEntity<PedidoDto> deleteItemFromPedido(@PathVariable Long id, @PathVariable Long idItem) {
-        Pedido pedido = getPedidoByIdDbUsecase.get(id);
+        Pedido pedido = getPedidoByIdUsecase.get(id);
         if (Objects.nonNull(pedido)) {
-        	deleteItemPedidoDbUsecase.deleteItemPedido(id, idItem);
+        	deleteItemPedidoUsecase.deleteItemPedido(id, idItem);
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
@@ -120,7 +120,7 @@ public class PedidoController {
     @PatchMapping(value = "/{id}/checkout")
     public ResponseEntity<PedidoDto> checkoutPedido(@PathVariable Long id, @RequestParam(required = true) Long collector, @RequestParam(required = true) String pos) {
         Pedido pedido = Pedido.builder().id(id).collector(Long.valueOf(collector)).pos(pos).build();
-        Pedido ped = checkoutPedidoDbUsecase.checkoutPedido(pedido);
+        Pedido ped = checkoutPedidoUsecase.checkoutPedido(pedido);
         if (Objects.nonNull(ped)) {
             return ResponseEntity.ok(modelMapper.map(ped, PedidoDto.class));
         }
@@ -131,10 +131,10 @@ public class PedidoController {
     public ResponseEntity<PedidoDto> notification(@RequestParam(name = "id") Long id, @RequestParam(name = "topic") String topic) {
         Pedido pedido = Pedido.builder().orderId(id).paymentId(id).build();
         if (("merchant_order").equals(topic) && Objects.nonNull(id)) {
-            pedido = confirmPedidoDbUsecase.confirmPedido(pedido);
+            pedido = confirmPedidoUsecase.confirmPedido(pedido);
         }
         if (("payment").equals(topic) && Objects.nonNull(id)) {
-            pedido = payPedidoDbUsecase.payPedido(pedido);
+            pedido = payPedidoUsecase.payPedido(pedido);
         }
         return ResponseEntity.ok(modelMapper.map(pedido, PedidoDto.class));
     }

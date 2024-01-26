@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class GetPedidoByIdDbUsecase {
+public class GetPedidoByIdUsecase {
 
 	private final PedidoRepositoryPort pedidoPort;
 

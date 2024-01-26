@@ -8,13 +8,13 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Transactional
-public class RetrieveClienteDbUsecase {
+public class RetrieveClienteUsecase {
 
 	private final ClienteRepositoryPort clientePort;
 
 	private final ClienteMapper clienteMapper;
 
-	public RetrieveClienteDbUsecase(ClienteRepositoryPort clientePort, ClienteMapper clienteMapper) {
+	public RetrieveClienteUsecase(ClienteRepositoryPort clientePort, ClienteMapper clienteMapper) {
 		this.clientePort = clientePort;
 		this.clienteMapper = clienteMapper;
 	}

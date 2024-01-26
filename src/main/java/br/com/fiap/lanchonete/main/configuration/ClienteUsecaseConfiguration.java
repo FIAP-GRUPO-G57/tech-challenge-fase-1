@@ -1,8 +1,8 @@
 package br.com.fiap.lanchonete.main.configuration;
 
 import br.com.fiap.lanchonete.core.domain.mappers.ClienteMapper;
-import br.com.fiap.lanchonete.core.usecases.cliente.CreateClienteDbUsecase;
-import br.com.fiap.lanchonete.core.usecases.cliente.RetrieveClienteDbUsecase;
+import br.com.fiap.lanchonete.core.usecases.cliente.CreateClienteUsecase;
+import br.com.fiap.lanchonete.core.usecases.cliente.RetrieveClienteUsecase;
 import br.com.fiap.lanchonete.infra.db.postgresql.ClientePostgresqlRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +19,12 @@ public class ClienteUsecaseConfiguration {
 	private ClienteMapper clienteMapper;
 
 	@Bean
-	CreateClienteDbUsecase constructCreateClienteUsecase() {
-		return new CreateClienteDbUsecase(clientePostgresqlRepository, clienteMapper);
+	CreateClienteUsecase constructCreateClienteUsecase() {
+		return new CreateClienteUsecase(clientePostgresqlRepository, clienteMapper);
 	}
 	
 	@Bean
-	RetrieveClienteDbUsecase constructRetrieveClienteDbUsecase() {
-		return new RetrieveClienteDbUsecase(clientePostgresqlRepository, clienteMapper);
+	RetrieveClienteUsecase constructRetrieveClienteDbUsecase() {
+		return new RetrieveClienteUsecase(clientePostgresqlRepository, clienteMapper);
 	}
 }

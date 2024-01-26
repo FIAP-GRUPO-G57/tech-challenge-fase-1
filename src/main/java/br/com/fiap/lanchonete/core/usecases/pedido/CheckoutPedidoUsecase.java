@@ -22,7 +22,7 @@ import java.util.Objects;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class CheckoutPedidoDbUsecase {
+public class CheckoutPedidoUsecase {
 	
 	private static final String DESCRIPTION = "This is the Point Mini";
 	private static final String TITLE = "Point Mini";

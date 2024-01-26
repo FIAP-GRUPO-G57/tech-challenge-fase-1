@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class PayPedidoDbUsecase {
+public class PayPedidoUsecase {
 
 	private final PedidoRepositoryPort pedidoRepositoryPort;
 	

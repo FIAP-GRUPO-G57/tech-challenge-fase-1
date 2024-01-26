@@ -10,7 +10,7 @@ import br.com.fiap.lanchonete.core.usecases.ports.repositories.ProdutoRepository
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class CreateProdutoDbUsecase {
+public class CreateProdutoUsecase {
 
     private final ProdutoRepositoryPort produtoPort;
 

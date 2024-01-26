@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ConfirmPedidoDbUsecase {
+public class ConfirmPedidoUsecase {
 
 	private final PedidoRepositoryPort pedidoPort;
 	

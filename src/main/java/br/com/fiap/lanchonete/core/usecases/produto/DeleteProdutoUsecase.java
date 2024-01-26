@@ -11,21 +11,13 @@ import java.util.Objects;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UpdateProdutoDbUsecase {
+public class DeleteProdutoUsecase {
 
 	private final ProdutoRepositoryPort produtoPort;
-	
-	public Produto update(Long id, Produto produto) {
-		if (Objects.nonNull(id)) {
-			produto.setId(id);
-			Produto produto1 = produtoPort.get(id);
 
-			if (Objects.isNull(produto1))
-				return null;
-
-			return produtoPort.save(produto);
-		}
-		return null;
-	}
+    public void delete(Produto produto) {
+        if(Objects.nonNull(produto))
+        	produtoPort.delete(produto);
+    }
 
 }

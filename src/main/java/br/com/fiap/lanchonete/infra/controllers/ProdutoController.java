@@ -3,11 +3,11 @@ package br.com.fiap.lanchonete.infra.controllers;
 import br.com.fiap.lanchonete.core.domain.dto.ProdutoDto;
 import br.com.fiap.lanchonete.core.domain.entities.Produto;
 import br.com.fiap.lanchonete.core.domain.enums.CategoriaEnum;
-import br.com.fiap.lanchonete.core.usecases.produto.CreateProdutoDbUsecase;
-import br.com.fiap.lanchonete.core.usecases.produto.DeleteProdutoDbUsecase;
-import br.com.fiap.lanchonete.core.usecases.produto.FindProdutoByCategoriaDbUsecase;
-import br.com.fiap.lanchonete.core.usecases.produto.GetProdutoByIdDbUsecase;
-import br.com.fiap.lanchonete.core.usecases.produto.UpdateProdutoDbUsecase;
+import br.com.fiap.lanchonete.core.usecases.produto.CreateProdutoUsecase;
+import br.com.fiap.lanchonete.core.usecases.produto.DeleteProdutoUsecase;
+import br.com.fiap.lanchonete.core.usecases.produto.FindProdutoByCategoriaUsecase;
+import br.com.fiap.lanchonete.core.usecases.produto.GetProdutoByIdUsecase;
+import br.com.fiap.lanchonete.core.usecases.produto.UpdateProdutoUsecase;
 import br.com.fiap.lanchonete.main.exception.EnumValidationException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -27,22 +27,22 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProdutoController {
 
-	private final GetProdutoByIdDbUsecase getProdutoByIdDbUsecase;
+	private final GetProdutoByIdUsecase getProdutoByIdUsecase;
 
-	private final FindProdutoByCategoriaDbUsecase findProdutoByCategoriaDbUsecase;
+	private final FindProdutoByCategoriaUsecase findProdutoByCategoriaUsecase;
 
-	private final CreateProdutoDbUsecase createProdutoDbUsecase;
+	private final CreateProdutoUsecase createProdutoUsecase;
 
-	private final UpdateProdutoDbUsecase updateProdutoDbUsecase;
+	private final UpdateProdutoUsecase updateProdutoUsecase;
 
-	private final DeleteProdutoDbUsecase deleteProdutoDbUsecase;
+	private final DeleteProdutoUsecase deleteProdutoUsecase;
 
 	@Autowired
 	public ModelMapper modelMapper;
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ProdutoDto> get(@PathVariable(value = "id") Long id) {
-		Produto produto = Optional.ofNullable(getProdutoByIdDbUsecase.get(id))
+		Produto produto = Optional.ofNullable(getProdutoByIdUsecase.get(id))
 				.orElseThrow(() -> new EntityNotFoundException("Produto nao encontrado para o id :: " + id));
 		return ResponseEntity.ok().body(modelMapper.map(produto, ProdutoDto.class));
 	}
@@ -60,20 +60,20 @@ public class ProdutoController {
 			throw new EnumValidationException("categoria", categoria);
 		}
 
-		List<ProdutoDto> produtos = findProdutoByCategoriaDbUsecase.findByCategoria(categoriaEnum).stream()
+		List<ProdutoDto> produtos = findProdutoByCategoriaUsecase.findByCategoria(categoriaEnum).stream()
 				.map(produto -> modelMapper.map(produto, ProdutoDto.class)).toList();
 		return ResponseEntity.ok(produtos);
 	}
 
 	@PostMapping
 	public ResponseEntity<ProdutoDto> post(@Validated @RequestBody ProdutoDto produtoDTO) {
-		Produto produto = createProdutoDbUsecase.create(modelMapper.map(produtoDTO, Produto.class));
+		Produto produto = createProdutoUsecase.create(modelMapper.map(produtoDTO, Produto.class));
 		return new ResponseEntity<ProdutoDto>(modelMapper.map(produto, ProdutoDto.class), HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<ProdutoDto> put(@PathVariable Long id, @Validated @RequestBody ProdutoDto produtoDTO) {
-		Produto produto = updateProdutoDbUsecase.update(id, modelMapper.map(produtoDTO, Produto.class));
+		Produto produto = updateProdutoUsecase.update(id, modelMapper.map(produtoDTO, Produto.class));
 
 		if (Objects.nonNull(produto)) {
 			return ResponseEntity.ok(modelMapper.map(produto, ProdutoDto.class));
@@ -85,9 +85,9 @@ public class ProdutoController {
 
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable(value = "id") Long id) {
-		Produto produto = Optional.ofNullable(getProdutoByIdDbUsecase.get(id))
+		Produto produto = Optional.ofNullable(getProdutoByIdUsecase.get(id))
 				.orElseThrow(() -> new EntityNotFoundException("Produto nao encontrado para o id :: " + id));
-		deleteProdutoDbUsecase.delete(produto);
+		deleteProdutoUsecase.delete(produto);
 		return ResponseEntity.noContent().<Void>build();
 	}
 }

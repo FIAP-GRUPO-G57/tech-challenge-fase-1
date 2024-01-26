@@ -15,7 +15,7 @@ import java.util.Objects;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class DeleteItemPedidoDbUsecase {
+public class DeleteItemPedidoUsecase {
 
 	private final PedidoRepositoryPort pedidoPort;
 

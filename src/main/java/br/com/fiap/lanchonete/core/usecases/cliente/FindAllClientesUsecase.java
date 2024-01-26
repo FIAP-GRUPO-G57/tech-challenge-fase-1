@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class FindAllClientesDbUsecase {
+public class FindAllClientesUsecase {
 	
 	private final ClienteRepositoryPort clientePort;
 

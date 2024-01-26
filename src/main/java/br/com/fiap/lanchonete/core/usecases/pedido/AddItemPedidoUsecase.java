@@ -18,7 +18,7 @@ import java.util.Objects;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class AddItemPedidoDbUsecase {
+public class AddItemPedidoUsecase {
 
 	private final PedidoRepositoryPort pedidoPort;
 	
