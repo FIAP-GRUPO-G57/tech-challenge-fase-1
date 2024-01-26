@@ -27,4 +27,5 @@ public class ClienteUsecaseConfiguration {
 	RetrieveClienteUsecase constructRetrieveClienteDbUsecase() {
 		return new RetrieveClienteUsecase(clientePostgresqlRepository, clienteMapper);
 	}
+	
 }
