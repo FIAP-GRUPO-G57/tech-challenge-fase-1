@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.util.List;
 
-import br.com.fiap.lanchonete.domain.enums.CategoriaEnum;
+import br.com.fiap.lanchonete.core.domain.enums.CategoriaEnum;
 
 @Data
 @NoArgsConstructor

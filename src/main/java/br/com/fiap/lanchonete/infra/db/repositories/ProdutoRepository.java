@@ -1,6 +1,6 @@
 package br.com.fiap.lanchonete.infra.db.repositories;
 
-import br.com.fiap.lanchonete.domain.enums.CategoriaEnum;
+import br.com.fiap.lanchonete.core.domain.enums.CategoriaEnum;
 import br.com.fiap.lanchonete.infra.db.schemas.ProdutoSchema;
 
 import org.springframework.data.repository.CrudRepository;

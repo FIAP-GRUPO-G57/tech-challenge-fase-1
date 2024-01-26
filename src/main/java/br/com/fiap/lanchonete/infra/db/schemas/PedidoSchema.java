@@ -1,6 +1,5 @@
 package br.com.fiap.lanchonete.infra.db.schemas;
 
-import br.com.fiap.lanchonete.domain.enums.StatusEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import br.com.fiap.lanchonete.core.domain.enums.StatusEnum;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

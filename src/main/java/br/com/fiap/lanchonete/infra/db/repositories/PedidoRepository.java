@@ -1,6 +1,6 @@
 package br.com.fiap.lanchonete.infra.db.repositories;
 
-import br.com.fiap.lanchonete.domain.enums.StatusEnum;
+import br.com.fiap.lanchonete.core.domain.enums.StatusEnum;
 import br.com.fiap.lanchonete.infra.db.schemas.PedidoSchema;
 
 import org.springframework.data.repository.CrudRepository;
