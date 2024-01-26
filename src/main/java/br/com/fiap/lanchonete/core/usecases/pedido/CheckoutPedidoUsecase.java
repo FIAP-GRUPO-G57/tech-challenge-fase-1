@@ -31,9 +31,9 @@ public class CheckoutPedidoUsecase {
 
 	private final PedidoRepositoryPort pedidoPort;
 	
-	public MercadoPagoRestClient orderRestClient;
+	private final MercadoPagoRestClient orderRestClient;
 
-	private GatewayPaymentConfiguration gatewayPayment;
+	private final GatewayPaymentConfiguration gatewayPayment;
 	
     public Pedido checkoutPedido(Pedido pedido) {
         Pedido ped = pedidoPort.get(pedido.getId());

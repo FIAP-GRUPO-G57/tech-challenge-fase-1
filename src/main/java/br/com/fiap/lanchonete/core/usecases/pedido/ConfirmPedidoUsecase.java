@@ -20,9 +20,9 @@ public class ConfirmPedidoUsecase {
 
 	private final PedidoRepositoryPort pedidoPort;
 	
-	public PaymentGatewayPort paymentGatewayPort;
+	private final PaymentGatewayPort paymentGatewayPort;
 
-	private GatewayPaymentConfiguration gatewayPayment;
+	private final GatewayPaymentConfiguration gatewayPayment;
 
     public Pedido confirmPedido(Pedido pedido) {
         if (Objects.isNull(pedido) || Objects.isNull(pedido.getOrderId()))
