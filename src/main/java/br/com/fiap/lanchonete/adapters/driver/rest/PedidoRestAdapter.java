@@ -9,6 +9,8 @@ import br.com.fiap.lanchonete.domain.entities.Item;
 import br.com.fiap.lanchonete.domain.entities.Pedido;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/pedidos")
 @RequiredArgsConstructor
+@Slf4j
 public class PedidoRestAdapter {
 
     private final GetPedidoByIdUseCase getPedidoByIdUseCase;
@@ -122,6 +125,7 @@ public class PedidoRestAdapter {
     @PostMapping(value = "/notifications")
     public ResponseEntity<PedidoDTO> notification(@RequestParam(name = "id") Long id, @RequestParam(name = "topic") String topic) {
         Pedido pedido = Pedido.builder().orderId(id).paymentId(id).build();
+        log.info("Pedido: {}", pedido);
         if (("merchant_order").equals(topic) && Objects.nonNull(id)) {
             pedido = confirmPedidoUseCase.confirmPedido(pedido);
         }
