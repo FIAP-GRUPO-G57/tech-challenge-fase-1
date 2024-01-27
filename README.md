@@ -130,7 +130,7 @@ Para executar o teste de stress localmente usando K6, siga estas etapas:
 3. Execute o script de teste de stress com o comando `k6 run` seguido do caminho para o seu script. No seu caso, o comando seria:
 
 ```bash
-k6 run /k6/load-test-k6.js
+k6 run /k6/script/load-test-k6.js
 ```
 ## Validando o Horizontal Pod Autoscaler (HPA)
 
@@ -166,7 +166,7 @@ http://localhost:8080/swagger-ui/index.html
 
 ## Coleção Postman
 
-Para importar a coleção do Postman, use o arquivo `client.postman_collection.json`.
+Para importar a coleção do Postman, use o arquivo `clientes - Fase 2.postman_collection.json`.
 
 
 
