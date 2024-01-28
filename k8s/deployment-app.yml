@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: lanchonete-container
-          image: adrianbp/lanchonete-myapp:1.0.7
+          image: adrianbp/lanchonete-myapp:1.0.8
           ports:
             - containerPort: 8080
           resources:
