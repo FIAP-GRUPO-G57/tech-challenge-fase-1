@@ -28,6 +28,13 @@ kubectl apply -f /k8s/secret-postgress.yaml
 
 ```
 
+Secret payment:
+
+```bash
+kubectl apply -f /k8s/secret-payment.yaml
+
+```
+
 Service postgress:
 
 ```bash
@@ -81,6 +88,13 @@ Secret postgress:
 
 ```bash
 kubectl apply -f /k8s/secret-postgress.yaml
+
+```
+
+Secret payment:
+
+```bash
+kubectl apply -f /k8s/secret-payment.yaml
 
 ```
 
