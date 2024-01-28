@@ -10,6 +10,8 @@ A aplicação é hospedada no EKS, um serviço gerenciado do Kubernetes fornecid
 
 ## Video Arquitetura
 
+https://youtu.be/oop_8-O3Iws
+
 
 ## Executando a Aplicação no EKS
 
