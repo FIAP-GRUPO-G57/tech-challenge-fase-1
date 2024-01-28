@@ -49,14 +49,18 @@ public class CheckoutPedidoUsecase {
         ped.setStatus(StatusEnum.PENDING);
         
         ArrayList<Item> itens = new ArrayList<>();
-		itens.add(buildItem(pedido));
+		itens.add(buildItem(ped));
 		Order order = Order.builder()
 				.cashOut(CashOut.builder().amount(new BigDecimal(NumberUtils.INTEGER_ZERO)).build())
 				.description(DESCRIPTION).externalReference(pedido.getId().toString()).items(itens)
-				.notificationUrl(gatewayPayment.getNotification()).title(TITLE).totalAmount(pedido.getPreco()).build();
+				.notificationUrl(gatewayPayment.getNotification()).title(TITLE).totalAmount(ped.getPreco()).build();
+
+
+				System.out.println(" totalammount::: " + ped.getPreco());
+
 		String qrData = orderRestClient.getPaymentQrCode(order, pedido.getCollector(), pedido.getPos(),
 				gatewayPayment.getToken());
-		pedido.setQrData(qrData);
+		ped.setQrData(qrData);
         
         return pedidoPort.checkout(ped);
     }
