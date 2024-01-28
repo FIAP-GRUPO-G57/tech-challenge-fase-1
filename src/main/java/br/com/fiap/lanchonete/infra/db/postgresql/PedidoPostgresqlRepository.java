@@ -47,7 +47,7 @@ public class PedidoPostgresqlRepository implements PedidoRepositoryPort {
 					Comparator.comparing(PedidoEntity::getSteps).reversed().thenComparing(PedidoEntity::getCriacao));
 			return list.stream().map(pedidoSchema -> modelMapper.map(pedidoSchema, Pedido.class)).toList();
 		}
-		return null;
+		return new ArrayList<>();
 	}
 
 	@Override
