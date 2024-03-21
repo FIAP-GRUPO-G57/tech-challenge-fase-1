@@ -74,5 +74,4 @@ jobs:
     
           sed -i.bak "s|adrianbp/lanchonete-myapp:1.0.8|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" k8s/deployment-app.yml && \
           sed -i.bak "s|jdbc:postgresql://postgres-svc:5432/postgres|jdbc:postgresql://$RDS_HOSTNAME:5432/postgres|g" k8s/deployment-app.yml && \
-          cat k8s/deployment-app.yml && \
           kubectl apply -f k8s/deployment-app.yml
