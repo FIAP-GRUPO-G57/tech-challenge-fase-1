@@ -69,6 +69,9 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ steps.commit.outputs.short }}
         run: |
+          echo "ECR_REGISTRY: $ECR_REGISTRY" && \
+          echo  "ECR_REPOSITORY: $ECR_REPOSITORY" && \
+          echo "IMAGE_TAG: $IMAGE_TAG" && \
           sed -i.bak "s|DOCKER_IMAGE|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" k8s/deployment-app.yml && \
           cat k8s/deployment-app.yml && \
           kubectl apply -f k8s/deployment-app.yml
