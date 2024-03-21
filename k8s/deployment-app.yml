@@ -24,7 +24,7 @@ spec:
               cpu: "0.5"  # This is the CPU reques
           env:
             - name: SPRING_DATASOURCE_URL
-              value: "jdbc:postgresql://postgres.c5m86yq46dg3.us-east-1.rds.amazonaws.com:5432/postgres"
+              value: "jdbc:postgresql://postgres-svc:5432/postgres"
             - name: GATEWAY_DATA_PAYMENT_NOTIFICATION
               value: "https://ruqvuimgf2.execute-api.us-east-1.amazonaws.com/beta/pedidos/notifications"
 
