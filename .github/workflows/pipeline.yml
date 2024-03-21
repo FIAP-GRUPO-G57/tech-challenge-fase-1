@@ -1,20 +1,30 @@
-name: Build and Publish Docker Image
+name: Java CI with Gradle
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "feature/pipeline2" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  ECR_REPOSITORY: lanchonete
+  EKS_CLUSTER_NAME: cluster_g57
+  AWS_REGION: us-east-1
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set short git commit SHA
+        id: commit
+        uses: prompt/actions-commit-hash@v3
+
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
           java-version: '17'
@@ -23,11 +33,45 @@ jobs:
         run: |
           ./gradlew build --no-daemon
 
-      - name: Docker Build and Publish
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Package
+          path: build/libs
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push the image to Amazon ECR
+        id: build-image
         env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
+          IMAGE_TAG: ${{ steps.commit.outputs.short }}
         run: |
-          echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-          docker build -t "${DOCKER_USERNAME}"/challenge:latest .
-          docker push "${DOCKER_USERNAME}"/challenge:latest
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          echo "Pushing image to ECR..."
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Update kube config
+        run: aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --region $AWS_REGION
+
+      - name: Deploy to EKS
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.REPO_NAME }}
+          IMAGE_TAG: ${{ steps.commit.outputs.short }}
+          RDS_HOSTNAME: ${{ secrets.RDS_HOSTNAME }}
+        run: |
+    
+          sed -i.bak "s|adrianbp/lanchonete-myapp:1.0.8|$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG|g" k8s/deployment-app.yml && \
+          sed -i.bak "s|jdbc:postgresql://postgres-svc:5432/postgres|jdbc:postgresql://$RDS_HOSTNAME:5432/postgres|g" k8s/deployment-app.yml && \
+          kubectl apply -f k8s/deployment-app.yml
